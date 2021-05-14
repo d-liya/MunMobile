@@ -3,11 +3,16 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import * as React from 'react';
-import { Text as DefaultText, View as DefaultView } from 'react-native';
-
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import * as React from "react";
+import { ScrollView as DefaultScrollView } from "react-native";
+import {
+  SafeAreaViewProps,
+  SafeAreaView as DefaultSafeAreaView,
+} from "react-native-safe-area-context";
+import { ThemeManager } from "react-native-ui-lib";
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+import Constants from "expo-constants";
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -28,19 +33,59 @@ type ThemeProps = {
   darkColor?: string;
 };
 
-export type TextProps = ThemeProps & DefaultText['props'];
-export type ViewProps = ThemeProps & DefaultView['props'];
+export type ScrollViewProps = ThemeProps & DefaultScrollView["props"];
 
-export function Text(props: TextProps) {
+export function ScrollView(props: ScrollViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-
-  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background"
+  );
+  return (
+    <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />
+  );
 }
 
-export function View(props: ViewProps) {
+export function SafeAreaScrollView(props: ScrollViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background"
+  );
+  return (
+    <DefaultScrollView
+      style={[
+        { backgroundColor, paddingTop: Constants.statusBarHeight },
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
+}
 
-  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+export function SafeAreaViewWithFlex(props: SafeAreaViewProps & ThemeProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background"
+  );
+  return (
+    <DefaultSafeAreaView
+      style={[{ backgroundColor, flex: 1 }, style]}
+      {...otherProps}
+    />
+  );
+}
+
+export default function useThemedComponents() {
+  const color = useColorScheme();
+  ThemeManager.setComponentTheme("Text", {
+    color: Colors[color].text,
+  });
+  ThemeManager.setComponentTheme("View", {
+    backgroundColor: Colors[color].background,
+  });
+  ThemeManager.setComponentTheme("TouchableOpacity", {
+    backgroundColor: Colors[color].background,
+  });
 }

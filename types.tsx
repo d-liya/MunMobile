@@ -3,20 +3,42 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
+import { ImageSourcePropType } from "react-native";
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  NewsTab: undefined;
+  StudentTab: undefined;
+  LibraryTab: undefined;
+  InformationTab: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type NewsTabParamList = {
+  MainNewsTabScreen: undefined;
+  NewsTabScreen: { category: string; title: string };
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type StudentTabParamList = {
+  StudentTabScreen: undefined;
+};
+
+export type LibraryTabParamList = {
+  LibraryTabScreen: undefined;
+};
+
+export type InfromationTabParamList = {
+  InformationTabScreen: undefined;
+};
+
+export type News = {
+  image: ImageSourcePropType;
+  title: String;
+  category: String;
+  url?: String;
+  date?: String;
+  description?: String;
 };
