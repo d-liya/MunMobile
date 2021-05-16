@@ -24,6 +24,8 @@ export type NewsTabParamList = {
 
 export type StudentTabParamList = {
   StudentTabScreen: undefined;
+  GradesScreen: undefined;
+  CoursesScreen: undefined;
 };
 
 export type LibraryTabParamList = {

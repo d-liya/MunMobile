@@ -13,6 +13,7 @@ import { ThemeManager } from "react-native-ui-lib";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import Constants from "expo-constants";
+import { FontAwesome5 as FAIcons5 } from "@expo/vector-icons";
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -37,44 +38,33 @@ export type ScrollViewProps = ThemeProps & DefaultScrollView["props"];
 
 export function ScrollView(props: ScrollViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "background"
-  );
-  return (
-    <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  return <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
 export function SafeAreaScrollView(props: ScrollViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "background"
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
   return (
     <DefaultScrollView
-      style={[
-        { backgroundColor, paddingTop: Constants.statusBarHeight },
-        style,
-      ]}
+      style={[{ backgroundColor, paddingTop: Constants.statusBarHeight }, style]}
       {...otherProps}
     />
   );
 }
 
+// export type FontAwesome5Props = ThemeProps & React.ComponentProps<typeof FAIcons5>;
+
+// export function FontAwesome5(props: FontAwesome5Props) {
+//   const { lightColor, darkColor, ...otherProps } = props;
+//   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+//   return <FAIcons5 color={color} {...otherProps} />;
+// }
+
 export function SafeAreaViewWithFlex(props: SafeAreaViewProps & ThemeProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "background"
-  );
-  return (
-    <DefaultSafeAreaView
-      style={[{ backgroundColor, flex: 1 }, style]}
-      {...otherProps}
-    />
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  return <DefaultSafeAreaView style={[{ backgroundColor, flex: 1 }, style]} {...otherProps} />;
 }
 
 export default function useThemedComponents() {
@@ -86,6 +76,9 @@ export default function useThemedComponents() {
     backgroundColor: Colors[color].background,
   });
   ThemeManager.setComponentTheme("TouchableOpacity", {
+    backgroundColor: Colors[color].background,
+  });
+  ThemeManager.setComponentTheme("Card", {
     backgroundColor: Colors[color].background,
   });
 }
