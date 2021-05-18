@@ -26,3 +26,5 @@ export const NewsSectionColors = {
   "Special Features": "#c09f61",
   Research: "#2A53D7",
 };
+
+export const CalendarColors = ["#fd693c", "#2575e6", "#e9c35d", "#dd4ec3", "#5721fa", "#cd117f"];
