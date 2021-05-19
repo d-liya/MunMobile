@@ -21,8 +21,13 @@ export default {
           StudentTab: {
             screens: {
               StudentTabScreen: "student",
-              CoursesScreen: "student/courses",
               GradesScreen: "student/grades",
+              StudentBottomTab: {
+                screens: {
+                  CoursesScreen: "student/courses",
+                  CourseCalendarScreen: "student/courses/calendar",
+                },
+              },
             },
           },
           InformationTab: {
