@@ -21,7 +21,7 @@ export default function StudentTabScreen({ navigation }: Props) {
       <Text color={red} text30H style={{ paddingTop: 15 }}>
         Student Resources
       </Text>
-      <View paddingT-10 flex style={{ flexWrap: "wrap" }} row>
+      <View paddingT-10 flex>
         <Card
           text="Courses"
           iconName="chalkboard-teacher"

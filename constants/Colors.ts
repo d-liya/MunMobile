@@ -18,6 +18,7 @@ export default {
     tabIconSelected: red,
   },
 };
+export const border = "#BBBBBB";
 export const NewsSectionColors = {
   "Campus and Community": "#009db4",
   "Student Life": "#6eaa2d",

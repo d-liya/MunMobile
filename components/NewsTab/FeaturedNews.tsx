@@ -14,7 +14,7 @@ export const FeaturedNews: FunctionComponent<FeaturedNewsProps> = ({
 }) => {
   return (
     <TouchableOpacity onPress={onPress} flex paddingT-10 paddingB-10>
-      <Image style={{ flex: 1, width: "100%", borderRadius: 5, height: 200 }} source={image} />
+      <Image style={{ flex: 1, width: "100%", borderRadius: 6, height: 200 }} source={image} />
       <View paddingT-10 paddingB-10>
         <Text text200B style={{ paddingBottom: 5, color: red }}>
           {category}

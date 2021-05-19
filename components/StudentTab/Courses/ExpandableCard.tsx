@@ -53,7 +53,8 @@ const Card = ({ title, information, color }: CardProps) => (
     marginL-0
     padding-5
     centerH
-    style={{ borderRadius: 5, minWidth: "35%", maxWidth: "50%" }}
+    br20
+    style={{ minWidth: "35%", maxWidth: "50%" }}
   >
     <Text color="white">{information}</Text>
     <Text color="white" text80H>

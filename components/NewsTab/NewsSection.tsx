@@ -36,7 +36,7 @@ export const NewsSection: FunctionComponent<NewsSectionProps> = ({
           width: "35%",
           height: 125,
           resizeMode: "cover",
-          borderRadius: 5,
+          borderRadius: 6,
         }}
         source={image}
       />
