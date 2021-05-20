@@ -53,13 +53,13 @@ export function SafeAreaScrollView(props: ScrollViewProps) {
   );
 }
 
-// export type FontAwesome5Props = ThemeProps & React.ComponentProps<typeof FAIcons5>;
+export type FontAwesome5Props = ThemeProps & React.ComponentProps<typeof FAIcons5>;
 
-// export function FontAwesome5(props: FontAwesome5Props) {
-//   const { lightColor, darkColor, ...otherProps } = props;
-//   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
-//   return <FAIcons5 color={color} {...otherProps} />;
-// }
+export function FontAwesome5(props: FontAwesome5Props) {
+  const { lightColor, darkColor, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  return <FAIcons5 color={color} {...otherProps} />;
+}
 
 export function SafeAreaViewWithFlex(props: SafeAreaViewProps & ThemeProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;

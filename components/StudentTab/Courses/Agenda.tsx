@@ -1,10 +1,10 @@
 import React from "react";
-import { Agenda } from "react-native-calendars";
+import { Agenda as DefaultAgenda } from "react-native-calendars";
 import { View } from "react-native-ui-lib";
 
-export default function Calendar() {
+export default function Agenda() {
   return (
-    <Agenda
+    <DefaultAgenda
       items={{
         "2021-05-18": [{ name: "Today" }],
       }}

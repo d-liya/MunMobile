@@ -3,7 +3,6 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 
@@ -14,14 +13,24 @@ import StudentTabNavigator from "./StudentTabNaviagtor";
 import LibraryTabNavigator from "./LibraryTabNavigator";
 import InformationTabNaviagtor from "./InformationTabNavigator";
 import NewsTabNavigator from "./NewsTabNavigator";
-
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { BottomTabParamList } from "../types";
-
+import { TabBarIcon } from "../components/Common/TabBarIcon";
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-
+  const handleTabBarVisibility = (route) => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    switch (routeName) {
+      case "CoursesTab":
+        return false;
+      case "NewsTabScreen":
+        return false;
+      default:
+        return true;
+    }
+  };
   return (
     <BottomTab.Navigator
       initialRouteName="NewsTab"
@@ -33,16 +42,18 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="NewsTab"
         component={NewsTabNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarVisible: handleTabBarVisibility(route),
           tabBarIcon: ({ color }) => <TabBarIcon name="newspaper" color={color} />,
-        }}
+        })}
       />
       <BottomTab.Screen
         name="StudentTab"
         component={StudentTabNavigator}
-        options={{
+        options={({ route }) => ({
+          tabBarVisible: handleTabBarVisibility(route),
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
-        }}
+        })}
       />
       <BottomTab.Screen
         name="LibraryTab"
@@ -60,8 +71,4 @@ export default function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
-
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>["name"]; color: string }) {
-  return <Ionicons size={25} style={{ marginBottom: -3 }} {...props} />;
 }

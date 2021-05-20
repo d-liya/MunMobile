@@ -19,7 +19,8 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      <BottomTabNavigator />
+      {/* <RootNavigator /> */}
     </NavigationContainer>
   );
 }

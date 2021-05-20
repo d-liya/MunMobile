@@ -8,9 +8,8 @@ import useColorScheme from "../../hooks/useColorScheme";
 type Props = {
   iconName: string;
   text: string;
-  color: string;
 } & TouchableOpacityProps;
-export default function Card({ iconName, text, color, ...otherProps }: Props) {
+export default function Card({ iconName, text, ...otherProps }: Props) {
   const theme = useColorScheme();
   return (
     <TouchableOpacity flex margin-5 row center {...otherProps}>

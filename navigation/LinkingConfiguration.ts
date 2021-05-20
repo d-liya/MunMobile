@@ -10,39 +10,34 @@ export default {
   prefixes: [Linking.makeUrl("/")],
   config: {
     screens: {
-      Root: {
+      NewsTab: {
         screens: {
-          NewsTab: {
+          MainNewsTabScreen: "news",
+          NewsTabScreen: "news/:category/:title",
+        },
+      },
+      StudentTab: {
+        screens: {
+          StudentTabScreen: "student",
+          GradesScreen: "student/grades",
+          CoursesTab: {
             screens: {
-              MainNewsTabScreen: "news",
-              NewsTabScreen: "news/:category/:title",
-            },
-          },
-          StudentTab: {
-            screens: {
-              StudentTabScreen: "student",
-              GradesScreen: "student/grades",
-              StudentBottomTab: {
-                screens: {
-                  CoursesScreen: "student/courses",
-                  CourseCalendarScreen: "student/courses/calendar",
-                },
-              },
-            },
-          },
-          InformationTab: {
-            screens: {
-              InformationTabScreen: "info",
-            },
-          },
-          LibraryTab: {
-            screens: {
-              LibraryTabScreen: "library",
+              CoursesTabScreen: "student/courses",
+              CalendarTabScreen: "student/courses/calendar",
             },
           },
         },
       },
-
+      InformationTab: {
+        screens: {
+          InformationTabScreen: "info",
+        },
+      },
+      LibraryTab: {
+        screens: {
+          LibraryTabScreen: "library",
+        },
+      },
       NotFound: "*",
     },
   },

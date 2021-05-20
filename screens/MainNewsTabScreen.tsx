@@ -25,9 +25,10 @@ export default function MainNewsTabScreen({ navigation }: Props) {
   };
   return (
     <SafeAreaScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
-      <Text color={red} text20H style={{ paddingTop: 15 }}>
-        News
+      <Text text50 style={{ paddingTop: 15 }}>
+        MUN
       </Text>
+      <Text text30H>News</Text>
       <FeaturedNews
         title={newsInfo[1].title}
         category={newsInfo[1].category}

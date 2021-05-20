@@ -5,6 +5,7 @@ import { ScrollView } from "../components/Themed";
 import { Picker } from "@react-native-picker/picker";
 import useColorScheme from "../hooks/useColorScheme";
 import { red } from "../constants/Colors";
+import Semester from "../components/StudentTab/Grades/Card";
 const state = {
   selectedValue: 1,
   items: [
@@ -37,10 +38,8 @@ export default function GradesScreen() {
   const [selectedSemester, set] = useState(state.selectedValue);
   return (
     <ScrollView style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 10 }}>
-      <Text text60 center color={red}>
-        Select The Term
-      </Text>
-      <Picker
+      <Text text60>Select The Term</Text>
+      {/* <Picker
         itemStyle={{
           color: theme === "dark" ? Colors.white : Colors.black,
         }}
@@ -50,8 +49,9 @@ export default function GradesScreen() {
         {state.items.map((el, i) => (
           <Picker.Item key={i} label={el.label} value={el.value} />
         ))}
-      </Picker>
-      <Text>You have selected {selectedSemester}</Text>
+      </Picker> */}
+      {/* <Text>You have selected {selectedSemester}</Text> */}
+      <Semester data={state.data[1]} />
     </ScrollView>
   );
 }

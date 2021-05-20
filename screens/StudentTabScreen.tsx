@@ -18,38 +18,29 @@ export default function StudentTabScreen({ navigation }: Props) {
   };
   return (
     <SafeAreaScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
-      <Text color={red} text30H style={{ paddingTop: 15 }}>
-        Student Resources
+      <Text text30H style={{ paddingTop: 15 }}>
+        Student{"\n"}Resources
       </Text>
       <View paddingT-10 flex>
         <Card
           text="Courses"
           iconName="chalkboard-teacher"
-          color="#2e59c5"
-          onPress={() => handleScreenChange("CoursesScreen")}
+          onPress={() => handleScreenChange("CoursesTab")}
         />
-        <Card
-          text="Grades"
-          iconName="poll"
-          color="#2d73f3"
-          onPress={() => handleScreenChange("GradesScreen")}
-        />
+        <Card text="Grades" iconName="poll" onPress={() => handleScreenChange("GradesScreen")} />
         <Card
           text="Athletics"
           iconName="running"
-          color="#f8583c"
           onPress={() => openInBrowser("https://goseahawks.ca/landing/index")}
         />
         <Card
           text="Current Student"
           iconName="info"
-          color="#f7275b"
           onPress={() => openInBrowser("https://www.mun.ca/main/students/")}
         />
         <Card
           text="Become A Graduate Student"
           iconName="graduation-cap"
-          color="#c90fba"
           onPress={() => openInBrowser("https://www.mun.ca/become/graduate/")}
         />
       </View>
