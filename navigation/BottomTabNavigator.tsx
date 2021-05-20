@@ -27,6 +27,8 @@ export default function BottomTabNavigator() {
         return false;
       case "NewsTabScreen":
         return false;
+      case "GradesScreen":
+        return false;
       default:
         return true;
     }

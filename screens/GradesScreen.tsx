@@ -6,6 +6,8 @@ import { Picker } from "@react-native-picker/picker";
 import useColorScheme from "../hooks/useColorScheme";
 import { red } from "../constants/Colors";
 import Semester from "../components/StudentTab/Grades/Card";
+import Swipeable from "react-native-ui-lib/generatedTypes/components/drawer/Swipeable";
+import SwipeableView from "../components/StudentTab/Grades/SwipeableView";
 const state = {
   selectedValue: 1,
   items: [
@@ -51,7 +53,7 @@ export default function GradesScreen() {
         ))}
       </Picker> */}
       {/* <Text>You have selected {selectedSemester}</Text> */}
-      <Semester data={state.data[1]} />
+      <SwipeableView childern={<Semester data={state.data[1]} />} />
     </ScrollView>
   );
 }
