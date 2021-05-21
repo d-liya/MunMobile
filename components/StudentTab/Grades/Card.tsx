@@ -29,18 +29,9 @@ const CourseCard = ({
   courseName: string;
   courseTitle: string;
 }) => (
-  <View
-    margin-10
-    backgroundColor={Colors.grey70}
-    width={150}
-    padding-10
-    paddingR-20
-    paddingL-20
-    br20
-    center
-  >
+  <View margin-10 width={150} padding-10 paddingR-20 paddingL-20 br20 center>
     <CircularProgress fill={marks} />
-    <View center paddingT-5 backgroundColor={Colors.grey70}>
+    <View center paddingT-5>
       <Text>{courseName}</Text>
       <Text center numberOfLines={1}>
         {courseTitle}

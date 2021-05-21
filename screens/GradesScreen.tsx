@@ -1,19 +1,35 @@
 import React from "react";
 import { useState } from "react";
-import { Text, Button, Colors } from "react-native-ui-lib";
+import { Text, Button, Colors, View } from "react-native-ui-lib";
 import { ScrollView } from "../components/Themed";
-import { Picker } from "@react-native-picker/picker";
-import useColorScheme from "../hooks/useColorScheme";
-import { red } from "../constants/Colors";
+import { useColorScheme } from "../hooks";
 import Semester from "../components/StudentTab/Grades/Card";
-import Swipeable from "react-native-ui-lib/generatedTypes/components/drawer/Swipeable";
 import SwipeableView from "../components/StudentTab/Grades/SwipeableView";
+import SemesterCard from "../components/StudentTab/Grades/SemesterCard";
+
+export default function GradesScreen() {
+  const theme = useColorScheme();
+  const [selectedSemester, set] = useState(state.selectedValue);
+  return (
+    <>
+      <View flex padding-10 paddingB-0>
+        <ScrollView style={{ paddingTop: 5 }}>
+          {state.items.map((el, i) => (
+            <SemesterCard key={i} name={el.label} gpa={el.value} />
+          ))}
+        </ScrollView>
+      </View>
+      <SwipeableView childern={<Semester data={state.data[1]} />} />
+    </>
+  );
+}
+
 const state = {
   selectedValue: 1,
   items: [
-    { label: "2021 Winter", value: 1 },
-    { label: "2020 Fall", value: 2 },
-    { label: "2020 Winter", value: 3 },
+    { label: "2021 Winter", value: 4.0 },
+    { label: "2020 Fall", value: 3.85 },
+    { label: "2020 Winter", value: 3.75 },
   ],
   data: {
     1: [
@@ -35,25 +51,3 @@ const state = {
     ],
   },
 };
-export default function GradesScreen() {
-  const theme = useColorScheme();
-  const [selectedSemester, set] = useState(state.selectedValue);
-  return (
-    <ScrollView style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 10 }}>
-      <Text text60>Select The Term</Text>
-      {/* <Picker
-        itemStyle={{
-          color: theme === "dark" ? Colors.white : Colors.black,
-        }}
-        selectedValue={selectedSemester}
-        onValueChange={(value, i) => set(value)}
-      >
-        {state.items.map((el, i) => (
-          <Picker.Item key={i} label={el.label} value={el.value} />
-        ))}
-      </Picker> */}
-      {/* <Text>You have selected {selectedSemester}</Text> */}
-      <SwipeableView childern={<Semester data={state.data[1]} />} />
-    </ScrollView>
-  );
-}

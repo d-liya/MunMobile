@@ -1,12 +1,12 @@
-import { NewsSectionEnums } from "./Enums";
-const tintColorLight = "#2f95dc";
-const tintColorDark = "#fff";
+import { Colors } from "react-native-ui-lib";
+const tintColorDark = "rgb(28,28,30)";
 export const red = "#862633";
 export default {
   light: {
     text: "#000",
     background: "#fff",
-    tint: tintColorLight,
+    tint: Colors.grey80,
+    border: Colors.grey50,
     tabIconDefault: "#ccc",
     tabIconSelected: red,
   },
@@ -14,13 +14,14 @@ export default {
     text: "#fff",
     background: "#000",
     tint: tintColorDark,
+    border: tintColorDark,
     tabIconDefault: "#ccc",
     tabIconSelected: red,
   },
 };
 export const border = "#BBBBBB";
 export const NewsSectionColors = {
-  "Campus and Community": "#009db4",
+  "Campus And Community": "#009db4",
   "Student Life": "#6eaa2d",
   "Teaching and Learning": "#4178ba",
   "Public Engagement": "#35b195",

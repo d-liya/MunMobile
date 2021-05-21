@@ -1,13 +1,16 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaScrollView } from "../components/Themed";
-import { View, Text } from "react-native-ui-lib";
+import { View, Text, LoaderScreen } from "react-native-ui-lib";
 import { red } from "../constants/Colors";
 import { FeaturedNews } from "../components/NewsTab/FeaturedNews";
 import { News, NewsTabParamList } from "../types";
 import { NewsSection } from "../components/NewsTab/NewsSection";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
+import { useEffect } from "react";
+import { getNewsAsync } from "../redux/Slices/news";
+import { useAppDispatch, useAppSelector } from "../hooks";
 
 type MainNewsTabNavigatorProps = StackNavigationProp<NewsTabParamList, "MainNewsTabScreen">;
 type MainNewsTabRoute = RouteProp<NewsTabParamList, "MainNewsTabScreen">;
@@ -17,10 +20,15 @@ type Props = {
 };
 
 export default function MainNewsTabScreen({ navigation }: Props) {
-  const handleOnPress = () => {
+  const dispatch = useAppDispatch();
+  const newsReducer = useAppSelector((state) => state.news);
+  useEffect(() => {
+    dispatch(getNewsAsync());
+  }, []);
+  const handleOnPress = (category: string, title: string) => {
     navigation.navigate("NewsTabScreen", {
-      category: "Research",
-      title: "Testing the water",
+      category,
+      title,
     });
   };
   return (
@@ -29,25 +37,37 @@ export default function MainNewsTabScreen({ navigation }: Props) {
         MUN
       </Text>
       <Text text30H>News</Text>
-      <FeaturedNews
-        title={newsInfo[1].title}
-        category={newsInfo[1].category}
-        image={newsInfo[1].image}
-        description={newsInfo[1].description}
-        onPress={handleOnPress}
-      />
-      {newsInfo.map((el: News, i: number) => (
-        <React.Fragment key={i}>
-          {/* <LineSeperator /> */}
-          <NewsSection
-            category={el.category}
-            title={el.title}
-            image={el.image}
-            date={el.date}
-            description={el.description}
+      {newsReducer.status === "SUCCEDDED" && (
+        <>
+          <FeaturedNews
+            title={newsReducer.news[0].title}
+            category={newsReducer.news[0].category}
+            image={newsReducer.news[0].image}
+            description={newsReducer.news[0].description}
+            onPress={() => handleOnPress(newsReducer.news[0].category, newsReducer.news[0].title)}
           />
-        </React.Fragment>
-      ))}
+          {newsReducer.news.map(
+            (el: News, i: number) =>
+              i > 0 && (
+                <React.Fragment key={i}>
+                  <NewsSection
+                    category={el.category}
+                    title={el.title}
+                    image={el.image}
+                    date={el.date}
+                    description={el.description}
+                    onPress={() => handleOnPress(el.category, el.title)}
+                  />
+                </React.Fragment>
+              )
+          )}
+        </>
+      )}
+      {newsReducer.status === "LOADING" && (
+        <View marginT-100>
+          <LoaderScreen message="Loading.." />
+        </View>
+      )}
     </SafeAreaScrollView>
   );
 }

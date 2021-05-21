@@ -41,11 +41,14 @@ export type StudentBottomTabParamList = {
   AgendaTabScreen: undefined;
 };
 
+export type FetchStatus = "IDLE" | "LOADING" | "SUCCEDDED" | "FAILED";
+
+//News
 export type News = {
   image: ImageSourcePropType;
-  title: String;
-  category: String;
-  url?: String;
-  date?: String;
-  description?: String;
+  title: string;
+  category: string;
+  date?: string;
+  description?: string;
+  markdownText?: string;
 };

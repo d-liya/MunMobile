@@ -11,7 +11,7 @@ import {
 } from "react-native-safe-area-context";
 import { ThemeManager } from "react-native-ui-lib";
 import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import { useColorScheme } from "../hooks";
 import Constants from "expo-constants";
 import { FontAwesome5 as FAIcons5 } from "@expo/vector-icons";
 

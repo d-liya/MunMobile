@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
 import { TouchableOpacity } from "react-native-ui-lib";
 import Colors, { NewsSectionColors } from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import { useColorScheme } from "../hooks";
 
 const NewsTabStack = createStackNavigator<NewsTabParamList>();
 
