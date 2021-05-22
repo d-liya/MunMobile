@@ -2,9 +2,11 @@ import * as React from "react";
 import { View } from "react-native-ui-lib";
 import Colors from "../constants/Colors";
 import { useColorScheme } from "../hooks";
-export const LineSeperator = () => {
+type Props = {
+  styles?: {};
+};
+export const LineSeperator = ({ styles }: Props) => {
   const theme = useColorScheme();
-
   return (
     <View
       style={{
@@ -13,6 +15,7 @@ export const LineSeperator = () => {
         marginLeft: -10,
         marginRight: -10,
         marginBottom: 8,
+        ...styles,
       }}
     />
   );
