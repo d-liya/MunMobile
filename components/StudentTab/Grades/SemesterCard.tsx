@@ -6,12 +6,13 @@ import { LineSeperator } from "../../LineSeperator";
 type Props = {
   name: string;
   gpa: number;
+  handleOnPress: () => void;
 };
-export default function SemesterCard({ name, gpa }: Props) {
+export default function SemesterCard({ name, gpa, handleOnPress }: Props) {
   const theme = useColorScheme();
   return (
     <>
-      <TouchableOpacity spread row padding-10 centerH>
+      <TouchableOpacity spread row padding-10 centerH onPress={handleOnPress}>
         <View>
           <Text text60>{name.split(" ")[1]}</Text>
           <Text>{name.split(" ")[0]}</Text>

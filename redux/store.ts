@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import news from "./Slices/news";
 import article from "./Slices/article";
+import grades from "./Slices/grades";
 export const store = configureStore({
   reducer: {
     news,
     article,
+    grades,
   },
 });
 

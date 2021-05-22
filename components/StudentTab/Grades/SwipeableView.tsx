@@ -23,30 +23,66 @@ const SPRING_CONFIG = {
   restSpeedThreshold: 0.1,
   stiffness: 500,
 };
+type PositionProps = "HIDDEN" | "HALF";
+
 type Props = {
   header: string;
   children: JSX.Element;
   icon?: React.ComponentProps<typeof Ionicons>["name"];
-  handleIconPress?: () => void;
-  startPosition?: "HIDDEN" | "HALF" | "FULL";
+  startPosition?: PositionProps;
+  handleOpen?: (el: boolean) => void;
+  open?: boolean;
+};
+const _handlePosition = (position: PositionProps, height: number) => {
+  switch (position) {
+    case "HIDDEN":
+      return height;
+    case "HALF":
+      return height / 2;
+  }
 };
 export default function SwipeableView({
   header,
   children,
   icon = "caret-up",
-  handleIconPress,
-  startPosition,
+  startPosition = "HALF",
+  open,
+  handleOpen,
 }: Props) {
   const windowHeight = Dimensions.get("window").height;
-  let START_VALUE = Math.floor(startPosition === "HIDDEN" ? windowHeight : windowHeight / 2);
+  let START_VALUE = _handlePosition(startPosition, windowHeight);
   const translateY = useSharedValue(START_VALUE);
+
+  const handleViewState = () => {
+    if (typeof open === "boolean" && handleOpen) {
+      open ? (translateY.value = 0) : (translateY.value = START_VALUE);
+    }
+  };
+  useEffect(() => {
+    if (open && handleOpen) {
+      handleViewState();
+      handleOpen(false);
+    }
+  }, [open]);
+  const handleIconPress = () => {
+    if (open && handleOpen) {
+      handleViewState();
+      handleOpen(false);
+    } else {
+      translateY.value === 0 ? (translateY.value = START_VALUE) : (translateY.value = 0);
+    }
+  };
+
   const theme = useColorScheme();
+
   const onGestureEvent = useAnimatedGestureHandler({
-    onStart: (event, ctx) => {
+    onStart: (event, ctx: { offsetY: number }) => {
       ctx.offsetY = translateY.value;
     },
     onActive: (event, ctx) => {
-      translateY.value = ctx.offsetY + event.translationY;
+      if (ctx.offsetY + event.translationY > 0) {
+        translateY.value = ctx.offsetY + event.translationY;
+      }
     },
     onEnd: ({ velocityY, absoluteY }, ctx) => {
       if (velocityY > 0) {
@@ -64,6 +100,7 @@ export default function SwipeableView({
       }
     },
   });
+
   const iconStyles = useAnimatedStyle(() => {
     let rotate = interpolate(translateY.value, [START_VALUE, 0], [0, 180]);
     rotate < 0 ? (rotate = 0) : null;
