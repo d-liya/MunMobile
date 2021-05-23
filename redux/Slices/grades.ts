@@ -8,7 +8,7 @@ type Grades = {
 };
 export type Course = {
   name: string;
-  title: string;
+  code: string;
   marks: number | number;
 };
 

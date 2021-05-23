@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, Text, View } from "react-native-ui-lib/";
 import Colors from "../../../constants/Colors";
 import { useColorScheme } from "../../../hooks";
-import { LineSeperator } from "../../LineSeperator";
+import { LineSeperator } from "../../Common/LineSeperator";
 type Props = {
   name: string;
   gpa: number;

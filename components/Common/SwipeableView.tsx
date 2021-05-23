@@ -11,9 +11,9 @@ import { Text } from "react-native-ui-lib";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { LineSeperator } from "../../LineSeperator";
-import Colors from "../../../constants/Colors";
-import { useColorScheme } from "../../../hooks";
+import { LineSeperator } from "./LineSeperator";
+import Colors from "../../constants/Colors";
+import { useColorScheme } from "../../hooks";
 import { useEffect } from "react";
 
 const SPRING_CONFIG = {

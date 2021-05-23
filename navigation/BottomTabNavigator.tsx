@@ -23,7 +23,7 @@ export default function BottomTabNavigator() {
   const handleTabBarVisibility = (route) => {
     const routeName = getFocusedRouteNameFromRoute(route);
     switch (routeName) {
-      case "CoursesTab":
+      case "CourseScreen":
         return false;
       case "NewsTabScreen":
         return false;

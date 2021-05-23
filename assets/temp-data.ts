@@ -1,3 +1,48 @@
+export const courseInfo = [
+  {
+    name: "Intro to Programming",
+    code: "COMP 1001",
+    startingDate: "2021-04-01",
+    endDate: "2021-08-26",
+    days: [
+      { day: "Monday", time: "10:00 am - 11:00 am" },
+      { day: "Wednesday", time: "10:00 am - 11:00 am", description: "Labs" },
+      { day: "Friday", time: "10:00 am - 11:00 am" },
+    ],
+  },
+  {
+    name: "Intro to Logic for Comp Sci",
+    code: "COMP 1002",
+    startingDate: "2021-04-01",
+    endDate: "2021-08-26",
+    days: [
+      { day: "Monday", time: "12:00 am - 01:00 pm" },
+      { day: "Thursday", time: "03:00 pm - 03:00 pm", description: "Labs" },
+      { day: "Friday", time: "10:00 am - 11:00 am" },
+    ],
+  },
+  {
+    name: "Linear Algebra I",
+    code: "MATH 2050",
+    startingDate: "2021-04-01",
+    endDate: "2021-08-26",
+    days: [
+      { day: "Monday", time: "09:00 am - 10:00 pm" },
+      { day: "Thursday", time: "09:00 am - 10:00 am" },
+    ],
+  },
+  {
+    name: "Writing Second Lang Stdnts",
+    code: "ENGL 1020",
+    startingDate: "2021-04-01",
+    endDate: "2021-08-26",
+    days: [
+      { day: "Monday", time: "05:00 pm - 06:00 pm" },
+      { day: "Thursday", time: "05:00 pm - 06:00 pm" },
+    ],
+  },
+];
+
 export const gradeInfo = {
   selectedValue: 1,
   items: [
@@ -7,21 +52,21 @@ export const gradeInfo = {
   ],
   data: {
     0: [
-      { title: "Intro to Programming", name: "COMP 1001", marks: 88 },
-      { title: "Intro to Logic for Comp Sci", name: "COMP 1002", marks: 93 },
-      { title: "Linear Algebra I", name: "MATH 2050", marks: "PAS" },
-      { title: "Writing Second Lang Stdnts !", name: "ENGL 1020", marks: 80 },
+      { name: "Intro to Programming", code: "COMP 1001", marks: 88 },
+      { name: "Intro to Logic for Comp Sci", code: "COMP 1002", marks: 93 },
+      { name: "Linear Algebra I", code: "MATH 2050", marks: "PAS" },
+      { name: "Writing Second Lang Stdnts", code: "ENGL 1020", marks: 80 },
     ],
     1: [
-      { title: "Foundation of Computing Sys", name: "COMP 1003", marks: 86 },
-      { title: "Intro to Microeconomics", name: "ECON 1010", marks: 88 },
-      { title: "CRW: Telling Stories", name: "ENGL 1090", marks: 71 },
-      { title: "Calculus III", name: "MATH 2000", marks: 89 },
+      { name: "Foundation of Computing Sys", code: "COMP 1003", marks: 86 },
+      { name: "Intro to Microeconomics", code: "ECON 1010", marks: 88 },
+      { name: "CRW: Telling Stories", code: "ENGL 1090", marks: 71 },
+      { name: "Calculus III", code: "MATH 2000", marks: 89 },
     ],
     2: [
-      { title: "Obj-Orient Prgm Human Comp Int", name: "COMP 2001", marks: 71 },
-      { title: "Data Strctrs & Algorithms", name: "COMP 2002", marks: 89 },
-      { title: "CRW Phil of Human Nature", name: "PHIL 1010", marks: 74 },
+      { name: "Obj-Orient Prgm Human Comp Int", code: "COMP 2001", marks: 71 },
+      { name: "Data Strctrs & Algorithms", code: "COMP 2002", marks: 89 },
+      { name: "CRW Phil of Human Nature", code: "PHIL 1010", marks: 74 },
     ],
   },
 };

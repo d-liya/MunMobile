@@ -20,12 +20,7 @@ export default {
         screens: {
           StudentTabScreen: "student",
           GradesScreen: "student/grades",
-          CoursesTab: {
-            screens: {
-              CoursesTabScreen: "student/courses",
-              CalendarTabScreen: "student/courses/calendar",
-            },
-          },
+          CoursesScreen: "student/courses",
         },
       },
       InformationTab: {

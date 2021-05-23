@@ -2,11 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import news from "./Slices/news";
 import article from "./Slices/article";
 import grades from "./Slices/grades";
+import courses from "./Slices/courses";
+
 export const store = configureStore({
   reducer: {
     news,
     article,
     grades,
+    courses,
   },
 });
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View } from "react-native-ui-lib";
-import Colors from "../constants/Colors";
-import { useColorScheme } from "../hooks";
+import Colors from "../../constants/Colors";
+import { useColorScheme } from "../../hooks";
 type Props = {
   styles?: {};
 };

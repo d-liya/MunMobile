@@ -25,7 +25,7 @@ export default function StudentTabScreen({ navigation }: Props) {
         <Card
           text="Courses"
           iconName="chalkboard-teacher"
-          onPress={() => handleScreenChange("CoursesTab")}
+          onPress={() => handleScreenChange("CourseScreen")}
         />
         <Card text="Grades" iconName="poll" onPress={() => handleScreenChange("GradesScreen")} />
         <Card

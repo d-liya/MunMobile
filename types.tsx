@@ -25,7 +25,7 @@ export type NewsTabParamList = {
 export type StudentTabParamList = {
   StudentTabScreen: undefined;
   GradesScreen: undefined;
-  CoursesTab: undefined;
+  CourseScreen: undefined;
 };
 
 export type LibraryTabParamList = {
@@ -34,11 +34,6 @@ export type LibraryTabParamList = {
 
 export type InfromationTabParamList = {
   InformationTabScreen: undefined;
-};
-
-export type StudentBottomTabParamList = {
-  CoursesTabScreen: undefined;
-  AgendaTabScreen: undefined;
 };
 
 export type FetchStatus = "IDLE" | "LOADING" | "SUCCEDDED" | "FAILED";

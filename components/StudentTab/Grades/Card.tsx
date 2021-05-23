@@ -18,9 +18,9 @@ export default function CourseCards({ data }: Props) {
         data.map((el, i) => (
           <View key={i} row padding-5 spread backgroundColor={Colors[theme].tint}>
             <View centerV backgroundColor={Colors[theme].tint}>
-              <Text text70H>{el.name}</Text>
+              <Text text70H>{el.code}</Text>
               <Text center numberOfLines={1}>
-                {el.title}
+                {el.name}
               </Text>
             </View>
             <CircularProgress fill={el.marks} />
