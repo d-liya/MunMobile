@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "mun",
-    "slug": "mun",
+    "name": "MUN Mobile",
+    "description": "New modern design of the existing Mun mobile app with some additional features",
+    "primaryColor": "#000000",
+    "slug": "mun-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
