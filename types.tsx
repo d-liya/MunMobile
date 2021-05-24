@@ -32,6 +32,11 @@ export type LibraryTabParamList = {
   LibraryTabScreen: undefined;
 };
 
+export type StudentBottomTabParamList = {
+  CoursesTabScreen: undefined;
+  AgendaTabScreen: undefined;
+};
+
 export type InfromationTabParamList = {
   InformationTabScreen: undefined;
 };

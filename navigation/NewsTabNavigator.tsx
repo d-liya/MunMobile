@@ -5,7 +5,7 @@ import MainNewsTabScreen from "../screens/MainNewsTabScreen";
 import NewsTabScreen from "../screens/NewsTabScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
-import { TouchableOpacity } from "react-native-ui-lib";
+import { TouchableOpacity } from "../components/Themed";
 import Colors, { NewsSectionColors } from "../constants/Colors";
 import { useColorScheme } from "../hooks";
 

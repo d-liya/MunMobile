@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, Image, LoaderScreen } from "react-native-ui-lib";
-import { SafeAreaScrollView, ScrollView } from "../components/Themed";
+import { Image, StyleSheet } from "react-native";
+import { View, Text, ScrollView, ActivityIndicator } from "../components/Themed";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/core";
 import { NewsTabParamList } from "../types";
@@ -27,14 +27,26 @@ export default function NewsTabScreen({ route, navigation }: Props) {
 
   return articleRducer.status === "SUCCEDDED" && markdownText ? (
     <ScrollView>
-      <Image source={image} style={{ width: "100%", height: 250 }} />
-      <View padding-10 paddingL-20 paddingR-20>
-        <Text text50>{title}</Text>
-        <Text text60M>{description}</Text>
+      <Image source={image} style={styles.image} />
+      <View style={styles.textView}>
+        <Text text="boldMediumTitle">{title}</Text>
+        <Text text="bodyText">{description}</Text>
       </View>
       <MarkDown category={category} markdownText={markdownText} />
     </ScrollView>
   ) : (
-    <LoaderScreen message="Loading.." />
+    <ActivityIndicator style={{ flex: 1, justifyContent: "center" }} />
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: "100%",
+    height: 250,
+  },
+  textView: {
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+});

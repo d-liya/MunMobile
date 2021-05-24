@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { View, Text, Image, TouchableOpacity, TouchableOpacityProps } from "react-native-ui-lib";
+import { View, Text, TouchableOpacity, TouchableOpacityProps } from "../Themed";
+import { Image, StyleSheet } from "react-native";
 import { red } from "../../constants/Colors";
 import { News } from "../../types";
 
@@ -13,15 +14,35 @@ export const FeaturedNews: FunctionComponent<FeaturedNewsProps> = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} flex paddingT-10 paddingB-10>
-      <Image style={{ flex: 1, width: "100%", borderRadius: 6, height: 200 }} source={image} />
-      <View paddingT-10 paddingB-10>
-        <Text text200B style={{ paddingBottom: 5, color: red }}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <Image style={styles.image} source={image} />
+      <View style={styles.textVIew}>
+        <Text text="secondaryText" color={red} style={styles.categoryText}>
           {category}
         </Text>
-        <Text text50>{title}</Text>
-        <Text text60M>{description}</Text>
+        <Text text="semiBoldbodyText">{title}</Text>
+        <Text text="bodyText">{description}</Text>
       </View>
     </TouchableOpacity>
   );
 };
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    width: "100%",
+    borderRadius: 6,
+    height: 200,
+  },
+  container: {
+    flex: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  textVIew: {
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  categoryText: {
+    paddingBottom: 5,
+  },
+});

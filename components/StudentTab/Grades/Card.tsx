@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native-ui-lib";
 import Colors from "../../../constants/Colors";
 import { useColorScheme } from "../../../hooks";
-import { ScrollView } from "../../Themed";
+import { ScrollView, View, Text } from "../../Themed";
 import CircularProgress from "./CircularProgress";
 import { Course } from "../../../redux/Slices/grades";
+import { StyleSheet } from "react-native";
 type Props = {
   data: Course[];
 };
@@ -16,10 +16,10 @@ export default function CourseCards({ data }: Props) {
       {data &&
         data.length > 0 &&
         data.map((el, i) => (
-          <View key={i} row padding-5 spread backgroundColor={Colors[theme].tint}>
-            <View centerV backgroundColor={Colors[theme].tint}>
-              <Text text70H>{el.code}</Text>
-              <Text center numberOfLines={1}>
+          <View key={i} style={[styles.container, { backgroundColor: Colors[theme].tint }]}>
+            <View style={[styles.textWrapper, { backgroundColor: Colors[theme].tint }]}>
+              <Text text="semiBoldsecondaryText">{el.code}</Text>
+              <Text style={styles.nameText} numberOfLines={1}>
                 {el.name}
               </Text>
             </View>
@@ -29,3 +29,17 @@ export default function CourseCards({ data }: Props) {
     </ScrollView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    padding: 5,
+    justifyContent: "space-between",
+  },
+  textWrapper: {
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  nameText: {
+    justifyContent: "center",
+  },
+});

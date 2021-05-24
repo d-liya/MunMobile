@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-import useThemedComponents from "./components/Themed";
 import useCachedResources from "./hooks/useCachedResources";
 import { useColorScheme } from "./hooks";
 import Navigation from "./navigation";
@@ -11,7 +10,6 @@ import { store } from "./redux/store";
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  useThemedComponents();
 
   if (!isLoadingComplete) {
     return null;

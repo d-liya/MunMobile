@@ -1,8 +1,9 @@
 import React from "react";
-import { TouchableOpacity, Text, View } from "react-native-ui-lib/";
+import { TouchableOpacity, Text, View } from "../../Themed";
 import Colors from "../../../constants/Colors";
 import { useColorScheme } from "../../../hooks";
 import { LineSeperator } from "../../Common/LineSeperator";
+import { StyleSheet } from "react-native";
 type Props = {
   name: string;
   gpa: number;
@@ -12,20 +13,19 @@ export default function SemesterCard({ name, gpa, handleOnPress }: Props) {
   const theme = useColorScheme();
   return (
     <>
-      <TouchableOpacity spread row padding-10 centerH onPress={handleOnPress}>
+      <TouchableOpacity style={styles.container} onPress={handleOnPress}>
         <View>
-          <Text text60>{name.split(" ")[1]}</Text>
+          <Text text="semiBoldsecondaryText">{name.split(" ")[1]}</Text>
           <Text>{name.split(" ")[0]}</Text>
         </View>
         <Text
-          text70
-          style={{
-            padding: 10,
-            textAlign: "center",
-            borderRadius: 6,
-            borderWidth: 0.8,
-            borderColor: Colors[theme].border,
-          }}
+          text="semiBoldsecondaryText"
+          style={[
+            styles.gpaText,
+            {
+              borderColor: Colors[theme].border,
+            },
+          ]}
         >
           {gpa.toFixed(2)}
         </Text>
@@ -34,3 +34,17 @@ export default function SemesterCard({ name, gpa, handleOnPress }: Props) {
     </>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    padding: 10,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
+  gpaText: {
+    padding: 10,
+    textAlign: "center",
+    borderRadius: 6,
+    borderWidth: 0.8,
+  },
+});

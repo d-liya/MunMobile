@@ -1,8 +1,7 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import { SafeAreaScrollView } from "../components/Themed";
-import { View, Text, LoaderScreen } from "react-native-ui-lib";
-import { red } from "../constants/Colors";
+import { ActivityIndicator, SafeAreaScrollView } from "../components/Themed";
+import { View, Text } from "../components/Themed";
 import { FeaturedNews } from "../components/NewsTab/FeaturedNews";
 import { News, NewsTabParamList } from "../types";
 import { NewsSection } from "../components/NewsTab/NewsSection";
@@ -11,6 +10,7 @@ import { RouteProp } from "@react-navigation/native";
 import { useEffect } from "react";
 import { getNewsAsync } from "../redux/Slices/news";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import commonStyles from "../components/Common/Styles";
 
 type MainNewsTabNavigatorProps = StackNavigationProp<NewsTabParamList, "MainNewsTabScreen">;
 type MainNewsTabRoute = RouteProp<NewsTabParamList, "MainNewsTabScreen">;
@@ -32,11 +32,11 @@ export default function MainNewsTabScreen({ navigation }: Props) {
     });
   };
   return (
-    <SafeAreaScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
-      <Text text50 style={{ paddingTop: 15 }}>
+    <SafeAreaScrollView style={commonStyles.paddingSides}>
+      <Text text="boldMediumTitle" style={styles.headerTextOne}>
         MUN
       </Text>
-      <Text text30H>News</Text>
+      <Text text="boldTitle">News</Text>
       {newsReducer.status === "SUCCEDDED" && (
         <>
           <FeaturedNews
@@ -63,37 +63,16 @@ export default function MainNewsTabScreen({ navigation }: Props) {
           )}
         </>
       )}
-      {newsReducer.status === "LOADING" && (
-        <View marginT-100>
-          <LoaderScreen message="Loading.." />
-        </View>
-      )}
+      {newsReducer.status === "LOADING" && <ActivityIndicator style={styles.loaderContainer} />}
     </SafeAreaScrollView>
   );
 }
 
-const newsInfo = [
-  {
-    title: "Proof of concept",
-    category: "Research",
-    image: require("../assets/images/poc.jpg"),
-    date: "May 6, 2021",
-    description:
-      "Chemistry researcher receives $655,900 to advance decarbonizing N.L. oil and gas ",
+const styles = StyleSheet.create({
+  headerTextOne: {
+    paddingTop: 15,
   },
-  {
-    title: "Testing the water",
-    category: "Research",
-    image: require("../assets/images/ttw.jpg"),
-    date: "May 12, 2021",
-    description:
-      "Researchers, fish harvesters rely on Marine Institute’s flume tank for safe, accessible trial runs",
+  loaderContainer: {
+    marginTop: 150,
   },
-  {
-    title: "Funding available",
-    category: "Campus And Community",
-    image: require("../assets/images/fa.jpg"),
-    date: "May 18, 2021",
-    description: "Deadline June 15 for conference, cross-campus initiatives funds",
-  },
-];
+});

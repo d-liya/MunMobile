@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Text, Button, Colors, View } from "react-native-ui-lib";
+import { View } from "../components/Themed";
 import { ScrollView } from "../components/Themed";
 import { useAppDispatch, useAppSelector, useColorScheme } from "../hooks";
 import Semester from "../components/StudentTab/Grades/Card";
@@ -16,9 +16,11 @@ export default function GradesScreen() {
   const gradesReducer = useAppSelector((state) => state.grades);
   const theme = useColorScheme();
   const [open, set] = useState(false);
+
   useEffect(() => {
     dispatch(getGradesAsync());
   }, []);
+
   const handleSemesterCardPress = (index: number) => {
     if (gradesReducer.grades) {
       const info = gradesReducer.grades[index];
@@ -26,9 +28,10 @@ export default function GradesScreen() {
     }
     set(true);
   };
+
   return (
     <>
-      <View flex padding-10 paddingB-0 style={{ ...StyleSheet.absoluteFillObject }}>
+      <View style={styles.container}>
         {gradesReducer.status === "SUCCEDDED" && (
           <ScrollView style={{ paddingTop: 5 }}>
             {gradesReducer.grades?.map((el, i) => (
@@ -57,3 +60,12 @@ export default function GradesScreen() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    paddingBottom: 0,
+    ...StyleSheet.absoluteFillObject,
+  },
+});

@@ -1,10 +1,10 @@
 import React from "react";
-import { View } from "react-native-ui-lib";
-import Agenda from "../components/StudentTab/Courses/Agenda";
+import { View } from "../components/Themed";
+import Agenda from "../components/StudentTab/Courses/AgendaComponent";
 
 export default function AgendaScreen() {
   return (
-    <View flex>
+    <View style={{ flex: 1 }}>
       <Agenda />
     </View>
   );

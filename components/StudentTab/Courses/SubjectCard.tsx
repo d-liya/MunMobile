@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native-ui-lib";
+import { StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "../../Themed";
 
 type Props = {
   name: string;
@@ -9,12 +10,27 @@ type Props = {
 
 export default function SubjectCard({ name, code, color }: Props) {
   return (
-    <TouchableOpacity flex row paddingT-10 spread style={{ alignItems: "flex-end" }}>
+    <TouchableOpacity style={[styles.container]}>
       <View style={{ maxWidth: "70%" }}>
-        <Text text70H>{code}</Text>
+        <Text text="semiBoldsecondaryText">{code}</Text>
         <Text numberOfLines={1}>{name}</Text>
       </View>
-      <View height={50} width={50} backgroundColor={color} br60></View>
+      <View style={[styles.circle, { backgroundColor: color }]} />
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingTop: 10,
+    flex: 1,
+  },
+  circle: {
+    height: 50,
+    width: 50,
+    borderRadius: 16,
+  },
+});

@@ -4,16 +4,22 @@
  */
 
 import * as React from "react";
-import { ScrollView as DefaultScrollView } from "react-native";
+import {
+  ScrollView as DefaultScrollView,
+  Text as DefaultText,
+  View as DefaultView,
+  TouchableOpacity as DefaultTouchableOpacity,
+  ActivityIndicator as DefaultActivityIndicator,
+} from "react-native";
 import {
   SafeAreaViewProps,
   SafeAreaView as DefaultSafeAreaView,
 } from "react-native-safe-area-context";
-import { ThemeManager } from "react-native-ui-lib";
 import Colors from "../constants/Colors";
 import { useColorScheme } from "../hooks";
 import Constants from "expo-constants";
 import { FontAwesome5 as FAIcons5 } from "@expo/vector-icons";
+import Typography from "../constants/Typography";
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -54,7 +60,6 @@ export function SafeAreaScrollView(props: ScrollViewProps) {
 }
 
 export type FontAwesome5Props = ThemeProps & React.ComponentProps<typeof FAIcons5>;
-
 export function FontAwesome5(props: FontAwesome5Props) {
   const { lightColor, darkColor, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
@@ -67,18 +72,37 @@ export function SafeAreaViewWithFlex(props: SafeAreaViewProps & ThemeProps) {
   return <DefaultSafeAreaView style={[{ backgroundColor, flex: 1 }, style]} {...otherProps} />;
 }
 
-export default function useThemedComponents() {
-  const color = useColorScheme();
-  ThemeManager.setComponentTheme("Text", {
-    color: Colors[color].text,
-  });
-  ThemeManager.setComponentTheme("View", {
-    backgroundColor: Colors[color].background,
-  });
-  ThemeManager.setComponentTheme("TouchableOpacity", {
-    backgroundColor: Colors[color].background,
-  });
-  ThemeManager.setComponentTheme("Card", {
-    backgroundColor: Colors[color].background,
-  });
+export type TextProps = ThemeProps &
+  DefaultText["props"] & { color?: string; text?: keyof typeof Typography };
+export function Text(props: TextProps) {
+  const { style, lightColor, darkColor, color, text, ...otherProps } = props;
+  const themecolor = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  return (
+    <DefaultText
+      style={[{ color: color ? color : themecolor }, style, text ? Typography[text] : {}]}
+      {...otherProps}
+    />
+  );
+}
+
+export type ViewProps = ThemeProps & DefaultView["props"];
+export function View(props: ViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export type TouchableOpacityProps = ThemeProps & DefaultTouchableOpacity["props"];
+export function TouchableOpacity(props: TouchableOpacityProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  return <DefaultTouchableOpacity style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+export type ActivityIndicatorProps = ThemeProps & DefaultActivityIndicator["props"];
+export function ActivityIndicator(props: ActivityIndicatorProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  return (
+    <DefaultActivityIndicator style={[{ backgroundColor }, style]} {...otherProps} size="large" />
+  );
 }

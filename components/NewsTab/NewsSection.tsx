@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from "react";
-import { View, Text, Image, TouchableOpacity, TouchableOpacityProps } from "react-native-ui-lib";
+import { View, Text, TouchableOpacity, TouchableOpacityProps } from "../Themed";
 import { red } from "../../constants/Colors";
 import { News } from "../../types";
+import { Image, StyleSheet } from "react-native";
 
 type NewsSectionProps = News & TouchableOpacityProps;
 
@@ -13,33 +14,46 @@ export const NewsSection: FunctionComponent<NewsSectionProps> = ({
   description,
   onPress,
 }) => (
-  <TouchableOpacity onPress={onPress} row spread paddingB-10 marginB-10 flex>
-    <View style={{ width: "60%" }} spread>
+  <TouchableOpacity onPress={onPress} style={styles.container}>
+    <View style={styles.textContainer}>
       <View>
         <Text color={red}>{category}</Text>
-        <Text text60M>{title}</Text>
+        <Text text="semiBoldsecondaryText">{title}</Text>
         {description && (
-          <Text text80L numberOfLines={3} style={{ paddingTop: 5, paddingBottom: 5 }}>
+          <Text text="tertiaryText" numberOfLines={3} style={styles.descriptionText}>
             {description}
           </Text>
         )}
       </View>
       <View>
-        <Text text90L color="gray">
+        <Text text="smallestText" color="gray">
           {date}
         </Text>
       </View>
     </View>
-    {image && (
-      <Image
-        style={{
-          width: "35%",
-          height: 125,
-          resizeMode: "cover",
-          borderRadius: 6,
-        }}
-        source={image}
-      />
-    )}
+    {image && <Image style={styles.image} source={image} />}
   </TouchableOpacity>
 );
+const styles = StyleSheet.create({
+  image: {
+    width: "35%",
+    height: 125,
+    resizeMode: "cover",
+    borderRadius: 6,
+  },
+  container: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    paddingBottom: 10,
+    marginBottom: 10,
+    flex: 1,
+  },
+  textContainer: {
+    width: "60%",
+    justifyContent: "space-between",
+  },
+  descriptionText: {
+    padding: 5,
+    paddingLeft: 0,
+  },
+});

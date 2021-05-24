@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { Text } from "react-native-ui-lib";
+import { Text } from "../Themed";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -91,11 +91,14 @@ export default function SwipeableView({
           : absoluteY > START_VALUE - 100
           ? (translateY.value = START_VALUE)
           : (translateY.value = 0);
+        absoluteY > START_VALUE ? (translateY.value = windowHeight - 140) : null;
       } else {
-        velocityY < -500
-          ? (translateY.value = 0)
-          : absoluteY < 250
-          ? (translateY.value = 0)
+        absoluteY < START_VALUE
+          ? velocityY < -500
+            ? (translateY.value = 0)
+            : absoluteY < 250
+            ? (translateY.value = 0)
+            : (translateY.value = START_VALUE)
           : (translateY.value = START_VALUE);
       }
     },
@@ -117,19 +120,10 @@ export default function SwipeableView({
   return (
     <PanGestureHandler {...{ onGestureEvent }}>
       <Animated.View style={[style, styles.container, { backgroundColor: Colors[theme].tint }]}>
-        <Text style={{ paddingBottom: 20 }} text50>
+        <Text style={styles.headerText} text="boldMediumTitle">
           {header}
         </Text>
-        <Animated.View
-          style={[
-            {
-              position: "absolute",
-              right: 30,
-              top: 20,
-            },
-            iconStyles,
-          ]}
-        >
+        <Animated.View style={[styles.icon, iconStyles]}>
           <Ionicons onPress={handleIconPress} name={icon} color={Colors[theme].text} size={30} />
         </Animated.View>
         <LineSeperator
@@ -147,5 +141,13 @@ const styles = StyleSheet.create({
     height: "100%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
+  },
+  headerText: {
+    paddingBottom: 20,
+  },
+  icon: {
+    position: "absolute",
+    right: 30,
+    top: 20,
   },
 });

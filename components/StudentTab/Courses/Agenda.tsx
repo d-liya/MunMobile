@@ -1,8 +1,9 @@
 import React from "react";
-import { LoaderScreen, View } from "react-native-ui-lib";
+import { ActivityIndicator, View } from "../../Themed";
 import Colors from "../../../constants/Colors";
 import { useAppSelector, useColorScheme } from "../../../hooks";
 import AgendaComponenet from "./AgendaComponent";
+import commonStyles from "../../Common/Styles";
 
 export default function Agenda() {
   const theme = useColorScheme();
@@ -13,14 +14,12 @@ export default function Agenda() {
         theme === "dark" ? (
           <AgendaComponenet backgroundColor={Colors["dark"].tint} />
         ) : (
-          <View flex>
+          <View style={commonStyles.flex}>
             <AgendaComponenet backgroundColor={Colors["light"].tint} />
           </View>
         )
       ) : (
-        <View marginT-60>
-          <LoaderScreen message="Loading.." />
-        </View>
+        <ActivityIndicator style={{ marginTop: 60, backgroundColor: Colors[theme].tint }} />
       )}
     </>
   );

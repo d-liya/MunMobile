@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View } from "react-native-ui-lib";
+import { View } from "../Themed";
 import Colors from "../../constants/Colors";
 import { useColorScheme } from "../../hooks";
 type Props = {

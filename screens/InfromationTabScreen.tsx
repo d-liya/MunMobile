@@ -1,6 +1,5 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { View, Text } from "../components/Themed";
 
 export default function InformationTabScreen() {
   return (

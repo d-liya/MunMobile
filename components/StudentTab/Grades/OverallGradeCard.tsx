@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, LoaderScreen } from "react-native-ui-lib";
+import { View, Text, ActivityIndicator } from "../../Themed";
 import Colors from "../../../constants/Colors";
 import { useAppSelector, useColorScheme } from "../../../hooks";
 import Chart from "./Chart";
+import { StyleSheet } from "react-native";
 
 export default function OverallGradeCard() {
   const theme = useColorScheme();
@@ -11,33 +12,50 @@ export default function OverallGradeCard() {
     <>
       {gradesReducer.status === "SUCCEDDED" && (
         <>
-          <View row padding-5 spread backgroundColor={Colors[theme].tint}>
-            <Text text70H>Earned Hours</Text>
+          <View style={[{ backgroundColor: Colors[theme].tint }, styles.textWrapper]}>
+            <Text text="semiBoldsecondaryText">Earned Hours</Text>
             <Text>{gradesReducer.earnedHours?.toFixed(3)}</Text>
           </View>
-          <View row padding-5 spread backgroundColor={Colors[theme].tint}>
-            <Text text70H>GPA Hours</Text>
+          <View style={[{ backgroundColor: Colors[theme].tint }, styles.textWrapper]}>
+            <Text text="semiBoldsecondaryText">GPA Hours</Text>
             <Text>{gradesReducer.gpahours?.toFixed(3)}</Text>
           </View>
-          <View row padding-5 spread backgroundColor={Colors[theme].tint}>
-            <Text text70H>GPA</Text>
+          <View style={[{ backgroundColor: Colors[theme].tint }, styles.textWrapper]}>
+            <Text text="semiBoldsecondaryText">GPA</Text>
             <Text>{gradesReducer.gpa?.toFixed(2)}</Text>
           </View>
-          <View center marginT-20>
-            <Text text70>GPA Distribution</Text>
-            <Chart
-              labels={gradesReducer.grades?.map((el) => el.semester)}
-              data={gradesReducer.grades?.map((el) => el.gpa)}
-            />
+          <View style={styles.chartWrapper}>
+            <Text text="semiBoldsecondaryText">GPA Distribution</Text>
+            {gradesReducer.grades && (
+              <Chart
+                labels={gradesReducer.grades?.map((el) => el.semester)}
+                data={gradesReducer.grades?.map((el) => el.gpa)}
+              />
+            )}
           </View>
         </>
       )}
 
       {gradesReducer.status === "LOADING" && (
-        <View marginT-60>
-          <LoaderScreen message="Loading.." />
-        </View>
+        <ActivityIndicator
+          style={[styles.loaderWrapper, { backgroundColor: Colors[theme].tint }]}
+        />
       )}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  textWrapper: {
+    flexDirection: "row",
+    padding: 5,
+    justifyContent: "space-between",
+  },
+  chartWrapper: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  loaderWrapper: {
+    marginTop: 60,
+  },
+});

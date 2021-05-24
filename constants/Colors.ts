@@ -1,12 +1,12 @@
-import { Colors } from "react-native-ui-lib";
 const tintColorDark = "rgb(28,28,30)";
+const tintColorLight = "#F8F8F9";
 export const red = "#862633";
 export default {
   light: {
     text: "#000",
     background: "#fff",
-    tint: Colors.grey80,
-    border: Colors.grey50,
+    tint: tintColorLight,
+    border: "rgb(229,229,234)",
     tabIconDefault: "#ccc",
     tabIconSelected: red,
   },

@@ -1,10 +1,11 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { Agenda as DefaultAgenda } from "react-native-calendars";
-import { View, Text, LoaderScreen } from "react-native-ui-lib";
+import { View, Text } from "../../Themed";
 import Colors, { CalendarColors } from "../../../constants/Colors";
 import { useAppSelector, useColorScheme } from "../../../hooks";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LineSeperator } from "../../Common/LineSeperator";
+import { StyleSheet } from "react-native";
 type Props = {
   backgroundColor: string;
 };
@@ -78,18 +79,15 @@ export default function Agenda({ backgroundColor }: Props) {
       selected={Date.now()}
       renderItem={(item, firstItemInDay) => (
         <>
-          {firstItemInDay && (
-            <LineSeperator styles={{ marginTop: 8, marginBottom: 0, marginLeft: -35 }} />
-          )}
+          {firstItemInDay && <LineSeperator styles={styles.lineSperator} />}
           <View
-            flex
-            br30
-            backgroundColor={item.color}
-            marginT-2
-            marginT-8={firstItemInDay}
-            padding-8
+            style={[
+              styles.renderItemView,
+              { backgroundColor: item.color },
+              firstItemInDay ? { marginTop: 8 } : {},
+            ]}
           >
-            <Text color="white" text70BL>
+            <Text color="white" text="semiBoldsecondaryText">
               {item.code}
             </Text>
             <Text color="white">{item.time}</Text>
@@ -106,7 +104,7 @@ export default function Agenda({ backgroundColor }: Props) {
       renderEmptyData={() => {
         return (
           <MaterialCommunityIcons
-            style={{ textAlign: "center", marginTop: 50 }}
+            style={styles.icon}
             name="calendar-blank"
             size={40}
             color="#ccc"
@@ -117,3 +115,20 @@ export default function Agenda({ backgroundColor }: Props) {
     />
   );
 }
+const styles = StyleSheet.create({
+  renderItemView: {
+    flex: 1,
+    borderRadius: 10,
+    marginTop: 2,
+    padding: 8,
+  },
+  lineSperator: {
+    marginTop: 8,
+    marginBottom: 0,
+    marginLeft: -35,
+  },
+  icon: {
+    textAlign: "center",
+    marginTop: 50,
+  },
+});
