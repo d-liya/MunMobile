@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { Text } from "../Themed";
+import { Text, View } from "../Themed";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -44,7 +44,7 @@ const _handlePosition = (position: PositionProps, height: number) => {
 export default function SwipeableView({
   header,
   children,
-  icon = "caret-up",
+  icon,
   startPosition = "HALF",
   open,
   handleOpen,
@@ -120,12 +120,19 @@ export default function SwipeableView({
   return (
     <PanGestureHandler {...{ onGestureEvent }}>
       <Animated.View style={[style, styles.container, { backgroundColor: Colors[theme].tint }]}>
+        <View style={styles.khob} />
         <Text style={styles.headerText} text="boldMediumTitle">
           {header}
         </Text>
-        <Animated.View style={[styles.icon, iconStyles]}>
-          <Ionicons onPress={handleIconPress} name={icon} color={Colors[theme].text} size={30} />
-        </Animated.View>
+        {icon && (
+          <Ionicons
+            style={styles.icon}
+            onPress={handleIconPress}
+            name={icon}
+            color={Colors[theme].text}
+            size={25}
+          />
+        )}
         <LineSeperator
           styles={theme === "dark" ? { borderBottomColor: Colors[theme].background } : {}}
         />
@@ -149,5 +156,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 30,
     top: 20,
+  },
+  khob: {
+    width: 30,
+    height: 5,
+    borderRadius: 100,
+    backgroundColor: Colors["light"].border,
+    alignSelf: "center",
+    position: "absolute",
+    top: 8,
   },
 });

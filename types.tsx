@@ -4,6 +4,7 @@
  */
 
 import { ImageSourcePropType } from "react-native";
+import { NewsSectionColors } from "./constants/Colors";
 
 export type RootStackParamList = {
   Root: undefined;
@@ -19,7 +20,7 @@ export type BottomTabParamList = {
 
 export type NewsTabParamList = {
   MainNewsTabScreen: undefined;
-  NewsTabScreen: { category: string; title: string };
+  NewsTabScreen: { category: keyof typeof NewsSectionColors | string; title: string };
 };
 
 export type StudentTabParamList = {
@@ -39,6 +40,7 @@ export type StudentBottomTabParamList = {
 
 export type InfromationTabParamList = {
   InformationTabScreen: undefined;
+  MapScreen: undefined;
 };
 
 export type FetchStatus = "IDLE" | "LOADING" | "SUCCEDDED" | "FAILED";

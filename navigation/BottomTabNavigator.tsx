@@ -29,33 +29,36 @@ export default function BottomTabNavigator() {
         return false;
       case "GradesScreen":
         return false;
+      case "MapScreen":
+        return false;
       default:
         return true;
     }
   };
   return (
     <BottomTab.Navigator
-      initialRouteName="NewsTab"
+      initialRouteName="InformationTab"
       tabBarOptions={{
         activeTintColor: Colors[colorScheme].tabIconSelected,
         showLabel: false,
       }}
+      screenOptions={({ route }) => ({
+        tabBarVisible: handleTabBarVisibility(route),
+      })}
     >
       <BottomTab.Screen
         name="NewsTab"
         component={NewsTabNavigator}
-        options={({ route }) => ({
-          tabBarVisible: handleTabBarVisibility(route),
+        options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="newspaper" color={color} />,
-        })}
+        }}
       />
       <BottomTab.Screen
         name="StudentTab"
         component={StudentTabNavigator}
-        options={({ route }) => ({
-          tabBarVisible: handleTabBarVisibility(route),
+        options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
-        })}
+        }}
       />
       <BottomTab.Screen
         name="LibraryTab"

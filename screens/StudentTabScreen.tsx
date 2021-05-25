@@ -24,9 +24,10 @@ export default function StudentTabScreen({ navigation }: Props) {
   };
   return (
     <SafeAreaScrollView style={commonStyles.paddingSides}>
-      <Text text="boldTitle" style={styles.headerText}>
-        Student{"\n"}Resources
+      <Text text="boldMediumTitle" style={styles.headerText}>
+        Student
       </Text>
+      <Text text="boldTitle">Resources</Text>
       <View style={styles.container}>
         <Card
           text="Courses"
@@ -45,7 +46,7 @@ export default function StudentTabScreen({ navigation }: Props) {
           onPress={() => _openInBrowser("https://www.mun.ca/main/students/")}
         />
         <Card
-          text="Become A Graduate Student"
+          text={"Become A Graduate \nStudent"}
           iconName="graduation-cap"
           onPress={() => _openInBrowser("https://www.mun.ca/become/graduate/")}
         />

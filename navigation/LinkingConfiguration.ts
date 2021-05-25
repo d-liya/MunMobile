@@ -26,6 +26,7 @@ export default {
       InformationTab: {
         screens: {
           InformationTabScreen: "info",
+          MapScreen: "map",
         },
       },
       LibraryTab: {
