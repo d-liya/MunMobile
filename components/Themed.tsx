@@ -84,7 +84,7 @@ export function Text(props: TextProps) {
       style={[
         { color: color ? color : themecolor, fontFamily: "nunito" },
         style,
-        text ? Typography[text] : {},
+        text ? Typography[text] : Typography["bodyText"],
       ]}
       {...otherProps}
     />

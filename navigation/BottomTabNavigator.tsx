@@ -37,7 +37,7 @@ export default function BottomTabNavigator() {
   };
   return (
     <BottomTab.Navigator
-      initialRouteName="InformationTab"
+      initialRouteName="LibraryTab"
       tabBarOptions={{
         activeTintColor: Colors[colorScheme].tabIconSelected,
         showLabel: false,

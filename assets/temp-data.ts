@@ -1,3 +1,41 @@
+export const libraryInfo = [
+  {
+    name: "Queen Elizabeth II Library",
+    description: "20 individual study carrels. 10 computers in the Commons",
+    available: ["Sunday-Thursday: 11:00am-7:00pm", "Friday-Saturday: Closed"],
+  },
+  {
+    name: "Grad Study Space: The Rotunda",
+    description:
+      "10 individual grad student study spaces. Booking requests must be submitted 24 hours in advance. It is accessed by swiping your MUN ID Card once it has been activated by CEP. Please ensure you have received a follow up email confirming your booking request.",
+    available: ["Monday: 12:00pm-9:00pm", "Tuesday to Saturday: 9:00am-9:00pm", "Sunday: Closed"],
+  },
+  {
+    name: "Grenfell Campus Arts & Science Extention",
+    description: "11 individual study carrels",
+    available: [
+      "Monday to Thursday: 11:00am-3:00pm and 4:00pm-8:00pm",
+      "Friday: 11:00am-3:00pm",
+      "Saturday: Closed",
+      "Sunday: 1:00pm-5:00pm",
+    ],
+  },
+  {
+    name: "Health Sciences Library",
+    description:
+      "33 individual study carrels. 8 computers. \n Entrance: Students permitted access to the Health Sciences Centre may enter through the internal library entrance. All other students, please use the Emergency Exit doors located at the South entrance of the Health Sciences Centre. Use the road by the bridge nearest the new Animal Research Centre and proceed past parking lot 9H.",
+    available: [
+      "Monday: Closed",
+      "Tuesday: 9:00am-4:00pm",
+      "Wednesday: 1:00-8:00pm",
+      "Thursday: 1:00-8:00pm",
+      "Friday: 9:00am-4:00pm",
+      "Saturday: Closed",
+      "Sunday: 9:00am-4:00pm",
+    ],
+  },
+];
+
 export const courseInfo = [
   {
     name: "Intro to Programming",
