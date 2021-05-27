@@ -37,10 +37,9 @@ export default function BottomTabNavigator() {
   };
   return (
     <BottomTab.Navigator
-      initialRouteName="LibraryTab"
+      initialRouteName="StudentTab"
       tabBarOptions={{
         activeTintColor: Colors[colorScheme].tabIconSelected,
-        showLabel: false,
       }}
       screenOptions={({ route }) => ({
         tabBarVisible: handleTabBarVisibility(route),
@@ -51,6 +50,7 @@ export default function BottomTabNavigator() {
         component={NewsTabNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="newspaper" color={color} />,
+          tabBarLabel: "News",
         }}
       />
       <BottomTab.Screen
@@ -58,6 +58,7 @@ export default function BottomTabNavigator() {
         component={StudentTabNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
+          tabBarLabel: "Student",
         }}
       />
       <BottomTab.Screen
@@ -65,6 +66,7 @@ export default function BottomTabNavigator() {
         component={LibraryTabNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="library" color={color} />,
+          tabBarLabel: "Library",
         }}
       />
       <BottomTab.Screen
@@ -72,6 +74,7 @@ export default function BottomTabNavigator() {
         component={InformationTabNaviagtor}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="apps" color={color} />,
+          tabBarLabel: "General",
         }}
       />
     </BottomTab.Navigator>

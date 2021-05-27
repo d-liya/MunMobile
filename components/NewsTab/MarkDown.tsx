@@ -16,6 +16,7 @@ export default function MarkDown({ category, markdownText }: Props) {
       padding: 10,
       paddingLeft: 20,
       paddingRight: 20,
+      fontFamily: "nunito",
     },
     blockquote: {
       backgroundColor: "transparent",

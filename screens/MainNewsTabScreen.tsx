@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import { ActivityIndicator, SafeAreaScrollView } from "../components/Themed";
-import { View, Text } from "../components/Themed";
+import { ActivityIndicator, SafeAreaScrollView, TextInput, Text, View } from "../components/Themed";
 import { FeaturedNews } from "../components/NewsTab/FeaturedNews";
 import { News, NewsTabParamList } from "../types";
 import { NewsSection } from "../components/NewsTab/NewsSection";
@@ -11,6 +10,9 @@ import { useEffect } from "react";
 import { getNewsAsync } from "../redux/Slices/news";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import commonStyles from "../components/Common/Styles";
+import { useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
+import { red } from "../constants/Colors";
 
 type MainNewsTabNavigatorProps = StackNavigationProp<NewsTabParamList, "MainNewsTabScreen">;
 type MainNewsTabRoute = RouteProp<NewsTabParamList, "MainNewsTabScreen">;
@@ -25,6 +27,7 @@ export default function MainNewsTabScreen({ navigation }: Props) {
   useEffect(() => {
     dispatch(getNewsAsync());
   }, []);
+  const [val, set] = useState("Search");
   const handleOnPress = (category: string, title: string) => {
     navigation.navigate("NewsTabScreen", {
       category,
@@ -37,6 +40,16 @@ export default function MainNewsTabScreen({ navigation }: Props) {
         MUN
       </Text>
       <Text text="boldTitle">News</Text>
+      <View style={styles.searchInputWrapper}>
+        <AntDesign style={styles.searchIcon} name="search1" size={20} color={red} />
+        <TextInput
+          value={val}
+          defaultValue="Search"
+          onChangeText={set}
+          style={styles.searchInput}
+          tintColor
+        />
+      </View>
       {newsReducer.status === "SUCCEDDED" && (
         <>
           <FeaturedNews
@@ -74,5 +87,20 @@ const styles = StyleSheet.create({
   },
   loaderContainer: {
     marginTop: 150,
+  },
+  searchInput: {
+    padding: 10,
+    paddingLeft: 50,
+  },
+  searchInputWrapper: {
+    position: "relative",
+    marginBottom: 5,
+    borderRadius: 6,
+  },
+  searchIcon: {
+    position: "absolute",
+    top: 6,
+    left: 8,
+    zIndex: 100,
   },
 });

@@ -13,6 +13,7 @@ export default StyleSheet.create({
   },
   bodyText: {
     fontSize: 17,
+    fontFamily: "nunito",
   },
   semiBoldbodyText: {
     fontSize: 17,

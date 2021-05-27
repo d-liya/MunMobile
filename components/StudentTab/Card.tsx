@@ -14,47 +14,58 @@ export default function Card({ iconName, text, ...otherProps }: Props) {
   return (
     <TouchableOpacity style={styles.container} {...otherProps}>
       <View tintColor style={[styles.iconView]}>
-        <FontAwesome5 name={iconName} size={40} color={red} />
+        <FontAwesome5 name={iconName} size={30} color={red} />
       </View>
-      <View
-        style={[
-          styles.textView,
-          Platform.OS === "ios"
-            ? {
-                borderBottomWidth: 1,
-                borderBottomColor: Colors[theme].border,
-                marginRight: -100,
-              }
-            : {},
-        ]}
-      >
+      <View style={[styles.textView, { borderColor: Colors[theme].border }]}>
         <Text text="semiBoldbodyText">{text}</Text>
       </View>
-      <Ionicons name="chevron-forward-sharp" size={20} color={Colors[theme].border} />
     </TouchableOpacity>
   );
+
+  // return (
+  //   <TouchableOpacity style={styles.container} {...otherProps}>
+  // <View tintColor style={[styles.iconView]}>
+  //   <FontAwesome5 name={iconName} size={40} color={red} />
+  // </View>
+  //     <View
+  //       style={[
+  //         styles.textView,
+  //         Platform.OS === "ios"
+  //           ? {
+  //               borderBottomWidth: 1,
+  //               borderBottomColor: Colors[theme].border,
+  //               marginRight: -100,
+  //             }
+  //           : {},
+  //       ]}
+  //     >
+  //       <Text text="semiBoldbodyText">{text}</Text>
+  //     </View>
+  //     <Ionicons name="chevron-forward-sharp" size={20} color={Colors[theme].border} />
+  //   </TouchableOpacity>
+  // );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     margin: 5,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
   iconView: {
     justifyContent: "center",
     alignItems: "center",
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 6,
-    marginRight: 10,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
   },
   textView: {
-    height: 120,
-    borderRadius: 6,
-    justifyContent: "center",
     flex: 1,
+    paddingLeft: 10,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderRadius: 6,
   },
 });

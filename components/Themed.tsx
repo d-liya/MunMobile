@@ -10,6 +10,7 @@ import {
   View as DefaultView,
   TouchableOpacity as DefaultTouchableOpacity,
   ActivityIndicator as DefaultActivityIndicator,
+  TextInput as DefaultTextInput,
 } from "react-native";
 import {
   SafeAreaViewProps,
@@ -99,6 +100,17 @@ export function View(props: ViewProps) {
     : useThemeColor({ light: lightColor, dark: darkColor }, "background");
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export type TextInputProps = ThemeProps & DefaultTextInput["props"] & { tintColor?: boolean };
+
+export function TextInput(props: TextInputProps) {
+  const { style, lightColor, darkColor, tintColor, ...otherProps } = props;
+  const backgroundColor = tintColor
+    ? useThemeColor({ light: lightColor, dark: darkColor }, "tint")
+    : useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  return <DefaultTextInput style={[{ backgroundColor, color }, style]} {...otherProps} />;
 }
 
 export type TouchableOpacityProps = ThemeProps & DefaultTouchableOpacity["props"];

@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     borderRadius: 6,
-    margin: 10,
+    marginTop: 10,
+    marginBottom: 10,
   },
   description: {
     marginTop: 10,
