@@ -13,7 +13,7 @@ export default function Card({ iconName, text, ...otherProps }: Props) {
   const theme = useColorScheme();
   return (
     <TouchableOpacity style={styles.container} {...otherProps}>
-      <View style={[styles.iconView, { backgroundColor: Colors[theme].tint }]}>
+      <View tintColor style={[styles.iconView]}>
         <FontAwesome5 name={iconName} size={40} color={red} />
       </View>
       <View

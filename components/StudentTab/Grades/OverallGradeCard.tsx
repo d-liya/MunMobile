@@ -12,15 +12,15 @@ export default function OverallGradeCard() {
     <>
       {gradesReducer.status === "SUCCEDDED" && (
         <>
-          <View style={[{ backgroundColor: Colors[theme].tint }, styles.textWrapper]}>
+          <View tintColor style={[styles.textWrapper]}>
             <Text text="semiBoldsecondaryText">Earned Hours</Text>
             <Text>{gradesReducer.earnedHours?.toFixed(3)}</Text>
           </View>
-          <View style={[{ backgroundColor: Colors[theme].tint }, styles.textWrapper]}>
+          <View tintColor style={[styles.textWrapper]}>
             <Text text="semiBoldsecondaryText">GPA Hours</Text>
             <Text>{gradesReducer.gpahours?.toFixed(3)}</Text>
           </View>
-          <View style={[{ backgroundColor: Colors[theme].tint }, styles.textWrapper]}>
+          <View tintColor style={[styles.textWrapper]}>
             <Text text="semiBoldsecondaryText">GPA</Text>
             <Text>{gradesReducer.gpa?.toFixed(2)}</Text>
           </View>

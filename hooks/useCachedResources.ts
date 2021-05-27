@@ -28,10 +28,16 @@ export default function useCachedResources() {
         await Font.loadAsync({
           ...Ionicons.font,
           "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
+          nunito: require("../assets/fonts/Nunito-Regular.ttf"),
+          "nunito-bold": require("../assets/fonts/Nunito-Bold.ttf"),
+          "nunito-semibold": require("../assets/fonts/Nunito-SemiBold.ttf"),
         });
 
         //Load Images
-        const imageAssets = await cacheImages([require("../assets/images/ttw.jpg"), require("../assets/images/poc.jpg")]);
+        const imageAssets = await cacheImages([
+          require("../assets/images/ttw.jpg"),
+          require("../assets/images/poc.jpg"),
+        ]);
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);

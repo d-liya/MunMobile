@@ -40,11 +40,13 @@ type ThemeProps = {
   darkColor?: string;
 };
 
-export type ScrollViewProps = ThemeProps & DefaultScrollView["props"];
+export type ScrollViewProps = ThemeProps & DefaultScrollView["props"] & { tintColor?: boolean };
 
 export function ScrollView(props: ScrollViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  const { style, lightColor, darkColor, tintColor, ...otherProps } = props;
+  const backgroundColor = tintColor
+    ? useThemeColor({ light: lightColor, dark: darkColor }, "tint")
+    : useThemeColor({ light: lightColor, dark: darkColor }, "background");
   return <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
@@ -79,16 +81,23 @@ export function Text(props: TextProps) {
   const themecolor = useThemeColor({ light: lightColor, dark: darkColor }, "text");
   return (
     <DefaultText
-      style={[{ color: color ? color : themecolor }, style, text ? Typography[text] : {}]}
+      style={[
+        { color: color ? color : themecolor, fontFamily: "nunito" },
+        style,
+        text ? Typography[text] : {},
+      ]}
       {...otherProps}
     />
   );
 }
 
-export type ViewProps = ThemeProps & DefaultView["props"];
+export type ViewProps = ThemeProps & DefaultView["props"] & { tintColor?: boolean };
 export function View(props: ViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, "background");
+  const { style, lightColor, darkColor, tintColor, ...otherProps } = props;
+  const backgroundColor = tintColor
+    ? useThemeColor({ light: lightColor, dark: darkColor }, "tint")
+    : useThemeColor({ light: lightColor, dark: darkColor }, "background");
+
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 

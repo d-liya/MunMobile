@@ -10,14 +10,13 @@ type Props = {
 };
 
 export default function CourseCards({ data }: Props) {
-  const theme = useColorScheme();
   return (
-    <ScrollView style={{ backgroundColor: Colors[theme].tint }}>
+    <ScrollView tintColor>
       {data &&
         data.length > 0 &&
         data.map((el, i) => (
-          <View key={i} style={[styles.container, { backgroundColor: Colors[theme].tint }]}>
-            <View style={[styles.textWrapper, { backgroundColor: Colors[theme].tint }]}>
+          <View tintColor key={i} style={[styles.container]}>
+            <View tintColor style={[styles.textWrapper]}>
               <Text text="semiBoldsecondaryText">{el.code}</Text>
               <Text style={styles.nameText} numberOfLines={1}>
                 {el.name}
