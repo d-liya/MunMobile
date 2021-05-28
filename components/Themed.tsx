@@ -19,7 +19,7 @@ import {
 import Colors from "../constants/Colors";
 import { useColorScheme } from "../hooks";
 import Constants from "expo-constants";
-import { FontAwesome5 as FAIcons5 } from "@expo/vector-icons";
+import { FontAwesome5 as FAIcons5, Ionicons as DefaultIoniconcs } from "@expo/vector-icons";
 import Typography from "../constants/Typography";
 
 export function useThemeColor(
@@ -67,6 +67,13 @@ export function FontAwesome5(props: FontAwesome5Props) {
   const { lightColor, darkColor, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
   return <FAIcons5 color={color} {...otherProps} />;
+}
+
+export type IoniconsProps = ThemeProps & React.ComponentProps<typeof FAIcons5>;
+export function Ionicons(props: IoniconsProps) {
+  const { lightColor, darkColor, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  return <DefaultIoniconcs color={color} {...otherProps} />;
 }
 
 export function SafeAreaViewWithFlex(props: SafeAreaViewProps & ThemeProps) {

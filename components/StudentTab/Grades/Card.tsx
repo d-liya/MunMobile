@@ -5,6 +5,7 @@ import { ScrollView, View, Text } from "../../Themed";
 import CircularProgress from "./CircularProgress";
 import { Course } from "../../../redux/Slices/grades";
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 type Props = {
   data: Course[];
 };
@@ -18,7 +19,7 @@ export default function CourseCards({ data }: Props) {
           <View tintColor key={i} style={[styles.container]}>
             <View tintColor style={[styles.textWrapper]}>
               <Text text="semiBoldsecondaryText">{el.code}</Text>
-              <Text style={styles.nameText} numberOfLines={1}>
+              <Text text="semiBoldsecondaryText" style={styles.nameText} numberOfLines={1}>
                 {el.name}
               </Text>
             </View>
@@ -40,5 +41,6 @@ const styles = StyleSheet.create({
   },
   nameText: {
     justifyContent: "center",
+    width: Dimensions.get("window").width - 150,
   },
 });

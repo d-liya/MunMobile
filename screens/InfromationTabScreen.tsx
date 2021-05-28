@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import { View, Text, SafeAreaViewWithFlex, SafeAreaScrollView } from "../components/Themed";
 import commonStyles from "../components/Common/Styles";
-import HeaderCard from "../components/InformationTab/MapCard";
+import MapCard from "../components/InformationTab/MapCard";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { InfromationTabParamList } from "../types";
 import TouchableCard from "../components/InformationTab/TouchableCard";
@@ -26,7 +26,7 @@ export default function InformationTabScreen({ navigation }: Props) {
       <Text style={styles.header} text="boldTitle">
         General
       </Text>
-      <HeaderCard onPress={handleMapView} />
+      <MapCard onPress={handleMapView} />
       <View style={styles.btnView}>
         <TouchableCard
           icon={<Entypo name="phone" size={34} color={red} />}

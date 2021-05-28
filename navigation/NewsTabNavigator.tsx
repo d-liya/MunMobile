@@ -16,36 +16,7 @@ export default function NewsTabNavigator() {
   return (
     <NewsTabStack.Navigator screenOptions={{ headerShown: false }}>
       <NewsTabStack.Screen name="MainNewsTabScreen" component={MainNewsTabScreen} />
-      <NewsTabStack.Screen
-        name="NewsTabScreen"
-        component={NewsTabScreen}
-        options={({ route }) => ({
-          title: route.params.category,
-          headerShown: true,
-          headerStyle: {
-            backgroundColor:
-              theme === "light" ? NewsSectionColors[route.params.category] : Colors[theme],
-          },
-          headerTintColor: "#fff",
-          headerBackTitleVisible: false,
-          headerRight: () => (
-            <TouchableOpacity
-              style={{
-                backgroundColor: "none",
-              }}
-            >
-              <Ionicons
-                name={Platform.OS === "ios" ? "share-outline" : "share-social-outline"}
-                size={24}
-                color="white"
-              />
-            </TouchableOpacity>
-          ),
-          headerRightContainerStyle: {
-            marginRight: 10,
-          },
-        })}
-      />
+      <NewsTabStack.Screen name="NewsTabScreen" component={NewsTabScreen} />
     </NewsTabStack.Navigator>
   );
 }

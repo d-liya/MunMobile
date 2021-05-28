@@ -37,7 +37,7 @@ export default function BottomTabNavigator() {
   };
   return (
     <BottomTab.Navigator
-      initialRouteName="StudentTab"
+      initialRouteName="NewsTab"
       tabBarOptions={{
         activeTintColor: Colors[colorScheme].tabIconSelected,
       }}
