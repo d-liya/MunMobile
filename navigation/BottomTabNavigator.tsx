@@ -31,6 +31,10 @@ export default function BottomTabNavigator() {
         return false;
       case "MapScreen":
         return false;
+      case "CourseLookUpScreen":
+        return false;
+      case "LibraryInfoScreen":
+        return false;
       default:
         return true;
     }

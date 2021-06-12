@@ -23,6 +23,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from "react-native-reanimated";
+import Navbar from "../components/Navbar/Navbar";
 
 type NewsTabNavigationProps = StackNavigationProp<NewsTabParamList, "NewsTabScreen">;
 type NewsTabRouteProps = RouteProp<NewsTabParamList, "NewsTabScreen">;
@@ -55,30 +56,65 @@ export default function NewsTabScreen({ route, navigation }: Props) {
       [IMAGE_HEIGHT + 100, IMAGE_HEIGHT],
       Extrapolate.CLAMP
     );
-    const top = interpolate(scrollY.value, [0, 200], [0, -IMAGE_HEIGHT], Extrapolate.CLAMP);
+    const top = interpolate(
+      scrollY.value,
+      [0, IMAGE_HEIGHT],
+      [0, -IMAGE_HEIGHT],
+      Extrapolate.CLAMP
+    );
+    const opacity = interpolate(scrollY.value, [0, 100], [1, 0], Extrapolate.CLAMP);
     return {
       height,
       top,
+      opacity,
+    };
+  });
+
+  const headerStyles = useAnimatedStyle(() => {
+    const opacity = interpolate(scrollY.value, [0, IMAGE_HEIGHT], [0, 1], Extrapolate.CLAMP);
+    return {
+      opacity,
     };
   });
 
   const scrollViewStyles = useAnimatedStyle(() => {
-    const height = interpolate(scrollY.value, [0, 200], [IMAGE_HEIGHT, 0], Extrapolate.CLAMP);
+    const marginTop = interpolate(
+      scrollY.value,
+      [0, IMAGE_HEIGHT - (Constants.statusBarHeight + 50)],
+      [0, Constants.statusBarHeight + 50],
+      Extrapolate.CLAMP
+    );
     return {
-      top: height,
+      marginTop,
+    };
+  });
+
+  const scrollViewFillStyles = useAnimatedStyle(() => {
+    const top = interpolate(scrollY.value, [0, IMAGE_HEIGHT], [IMAGE_HEIGHT, 0], Extrapolate.CLAMP);
+    return {
+      height: top,
     };
   });
   return articleRducer.status === "SUCCEDDED" && markdownText ? (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.iconWrapper} onPress={handleBackButton}>
-        <Ionicons name="arrow-back" size={20} />
-      </TouchableOpacity>
+      <Navbar
+        navigation={navigation}
+        containerStyle={{ backgroundColor: "transparent" }}
+        children={
+          <Animated.View style={[headerStyles, { width: "80%" }]}>
+            <Text text="semiBoldbodyText" style={styles.textAlign}>
+              {title}
+            </Text>
+          </Animated.View>
+        }
+      />
       <Animated.Image source={image} style={[styles.image, imageStyle]} />
       <Animated.ScrollView
         style={[StyleSheet.absoluteFill, scrollViewStyles]}
         {...{ onScroll }}
         scrollEventThrottle={1}
       >
+        <Animated.View style={[scrollViewFillStyles]} />
         <View style={styles.textView}>
           <Text text="boldMediumTitle">{title}</Text>
           <Text text="bodyText">{description}</Text>
@@ -103,13 +139,9 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
+    backgroundColor: "transparent",
   },
-  iconWrapper: {
-    position: "absolute",
-    top: Constants.statusBarHeight + 10,
-    left: 10,
-    zIndex: 100,
-    borderRadius: 60,
-    padding: 5,
+  textAlign: {
+    textAlign: "center",
   },
 });

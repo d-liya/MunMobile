@@ -15,6 +15,7 @@ import { LineSeperator } from "./LineSeperator";
 import Colors from "../../constants/Colors";
 import { useColorScheme } from "../../hooks";
 import { useEffect } from "react";
+import Constants from "expo-constants";
 
 const SPRING_CONFIG = {
   damping: 50,
@@ -26,12 +27,13 @@ const SPRING_CONFIG = {
 type PositionProps = "HIDDEN" | "HALF";
 
 type Props = {
-  header: string;
+  header?: string;
   children: JSX.Element;
   icon?: React.ComponentProps<typeof Ionicons>["name"];
   startPosition?: PositionProps;
   handleOpen?: (el: boolean) => void;
   open?: boolean;
+  headerLineSeperator?: boolean;
 };
 const _handlePosition = (position: PositionProps, height: number) => {
   switch (position) {
@@ -48,14 +50,14 @@ export default function SwipeableView({
   startPosition = "HALF",
   open,
   handleOpen,
+  headerLineSeperator,
 }: Props) {
   const windowHeight = Dimensions.get("window").height;
   let START_VALUE = _handlePosition(startPosition, windowHeight);
   const translateY = useSharedValue(START_VALUE);
-
   const handleViewState = () => {
     if (typeof open === "boolean" && handleOpen) {
-      open ? (translateY.value = 0) : (translateY.value = START_VALUE);
+      open ? (translateY.value = 100) : (translateY.value = START_VALUE);
     }
   };
   useEffect(() => {
@@ -69,7 +71,7 @@ export default function SwipeableView({
       handleViewState();
       handleOpen(false);
     } else {
-      translateY.value === 0 ? (translateY.value = START_VALUE) : (translateY.value = 0);
+      translateY.value === 100 ? (translateY.value = START_VALUE) : (translateY.value = 100);
     }
   };
 
@@ -84,61 +86,61 @@ export default function SwipeableView({
         translateY.value = ctx.offsetY + event.translationY;
       }
     },
-    onEnd: ({ velocityY, absoluteY }, ctx) => {
+    onEnd: ({ velocityY, absoluteY, velocityX }, ctx) => {
       if (velocityY > 0) {
         velocityY > 500
           ? (translateY.value = START_VALUE)
           : absoluteY > START_VALUE - 100
           ? (translateY.value = START_VALUE)
-          : (translateY.value = 0);
-        absoluteY > START_VALUE ? (translateY.value = windowHeight - 140) : null;
+          : (translateY.value = 100);
+        absoluteY > START_VALUE && translateY.value === START_VALUE
+          ? (translateY.value = windowHeight - 140)
+          : null;
       } else {
         absoluteY < START_VALUE
           ? velocityY < -500
-            ? (translateY.value = 0)
+            ? (translateY.value = 100)
             : absoluteY < 250
-            ? (translateY.value = 0)
+            ? (translateY.value = 100)
             : (translateY.value = START_VALUE)
           : (translateY.value = START_VALUE);
       }
     },
   });
 
-  const iconStyles = useAnimatedStyle(() => {
-    let rotate = interpolate(translateY.value, [START_VALUE, 0], [0, 180]);
-    rotate < 0 ? (rotate = 0) : null;
-    rotate > 180 ? (rotate = 180) : null;
-    return {
-      transform: [{ rotate: `${rotate}deg` }],
-    };
-  });
   const style = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: withSpring(translateY.value, SPRING_CONFIG) }],
     };
   });
   return (
-    <PanGestureHandler {...{ onGestureEvent }}>
-      <Animated.View style={[style, styles.container, { backgroundColor: Colors[theme].tint }]}>
-        <View style={styles.khob} />
-        <Text style={styles.headerText} text="boldMediumTitle">
-          {header}
-        </Text>
-        {icon && (
-          <Ionicons
-            style={styles.icon}
-            onPress={handleIconPress}
-            name={icon}
-            color={Colors[theme].text}
-            size={25}
-          />
-        )}
-        <LineSeperator
-          styles={theme === "dark" ? { borderBottomColor: Colors[theme].background } : {}}
-        />
-        {children}
-      </Animated.View>
-    </PanGestureHandler>
+    <>
+      <PanGestureHandler {...{ onGestureEvent }}>
+        <Animated.View style={[style, styles.container, { backgroundColor: Colors[theme].tint }]}>
+          <View style={styles.khob} />
+          {header && (
+            <Text style={styles.headerText} text="boldMediumTitle" numberOfLines={1}>
+              {header}
+            </Text>
+          )}
+          {icon && (
+            <Ionicons
+              style={styles.icon}
+              onPress={handleIconPress}
+              name={icon}
+              color={Colors[theme].text}
+              size={25}
+            />
+          )}
+          {headerLineSeperator && (
+            <LineSeperator
+              styles={theme === "dark" ? { borderBottomColor: Colors[theme].background } : {}}
+            />
+          )}
+          {children}
+        </Animated.View>
+      </PanGestureHandler>
+    </>
   );
 }
 const styles = StyleSheet.create({
@@ -148,6 +150,12 @@ const styles = StyleSheet.create({
     height: "100%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
+  },
+  background: {
+    ...StyleSheet.absoluteFillObject,
+    width: "100%",
+    backgroundColor: "black",
+    opacity: 0.5,
   },
   headerText: {
     paddingBottom: 20,

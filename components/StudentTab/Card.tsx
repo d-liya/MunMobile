@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 10,
     justifyContent: "center",
-    borderWidth: Platform.OS === "ios" ? 1 : 0.5,
+    borderWidth: Platform.OS === "ios" ? 0.7 : 0.5,
     borderLeftWidth: 0,
     borderRadius: 6,
   },

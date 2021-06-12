@@ -36,6 +36,11 @@ export default function StudentTabScreen({ navigation }: Props) {
         />
         <Card text="Grades" iconName="poll" onPress={() => handleScreenChange("GradesScreen")} />
         <Card
+          text="Course Look Up"
+          iconName="search"
+          onPress={() => handleScreenChange("CourseLookUpScreen")}
+        />
+        <Card
           text="Athletics"
           iconName="running"
           onPress={() => _openInBrowser("https://goseahawks.ca/landing/index")}

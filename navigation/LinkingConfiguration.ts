@@ -32,6 +32,7 @@ export default {
       LibraryTab: {
         screens: {
           LibraryTabScreen: "library",
+          LibraryInfoScreen: "library/:name",
         },
       },
       NotFound: "*",

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View } from "../components/Themed";
-import { ScrollView } from "../components/Themed";
+import { View, Text, SafeAreaScrollView } from "../components/Themed";
 import { useAppDispatch, useAppSelector, useColorScheme } from "../hooks";
 import Semester from "../components/StudentTab/Grades/Card";
 import SwipeableView from "../components/Common/SwipeableView";
@@ -10,8 +9,16 @@ import { StyleSheet } from "react-native";
 import OverallGradeCard from "../components/StudentTab/Grades/OverallGradeCard";
 import { useEffect } from "react";
 import { getGradesAsync, setSemesterInfo } from "../redux/Slices/grades";
+import Navbar from "../components/Navbar/Navbar";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StudentTabParamList } from "../types";
 
-export default function GradesScreen() {
+type GradeNavigationProps = StackNavigationProp<StudentTabParamList, "GradesScreen">;
+type Props = {
+  navigation: GradeNavigationProps;
+};
+
+export default function GradesScreen({ navigation }: Props) {
   const dispatch = useAppDispatch();
   const gradesReducer = useAppSelector((state) => state.grades);
   const theme = useColorScheme();
@@ -31,9 +38,10 @@ export default function GradesScreen() {
 
   return (
     <>
+      <Navbar navigation={navigation} backLabel="Student Resources" />
       <View style={styles.container}>
         {gradesReducer.status === "SUCCEDDED" && (
-          <ScrollView style={{ paddingTop: 5 }}>
+          <SafeAreaScrollView style={{ paddingTop: 70, paddingLeft: 30 }}>
             {gradesReducer.grades?.map((el, i) => (
               <SemesterCard
                 key={i}
@@ -42,7 +50,7 @@ export default function GradesScreen() {
                 handleOnPress={() => handleSemesterCardPress(i)}
               />
             ))}
-          </ScrollView>
+          </SafeAreaScrollView>
         )}
       </View>
       <SwipeableView children={<OverallGradeCard />} header="Overall" />

@@ -27,10 +27,12 @@ export type StudentTabParamList = {
   StudentTabScreen: undefined;
   GradesScreen: undefined;
   CourseScreen: undefined;
+  CourseLookUpScreen: undefined;
 };
 
 export type LibraryTabParamList = {
   LibraryTabScreen: undefined;
+  LibraryInfoScreen: { name: string; description: string; available: string[] };
 };
 
 export type StudentBottomTabParamList = {
