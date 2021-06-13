@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaScrollView, View, Text } from "../components/Themed";
+import { ScrollView, View, Text } from "../components/Themed";
 import SwipeableView from "../components/Common/SwipeableView";
 import Agenda from "../components/StudentTab/Courses/Agenda";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -24,13 +24,17 @@ export default function CoursesScreen({ navigation }: Props) {
   }, []);
   return (
     <>
-      <Navbar navigation={navigation} backLabel="Student Resources" />
-      <SafeAreaScrollView style={[commonStyles.paddingSides, { paddingTop: 70, paddingLeft: 30 }]}>
+      <Navbar
+        navigation={navigation}
+        containerStyle={{ position: "relative" }}
+        backLabel="Student Resources"
+      />
+      <ScrollView style={[commonStyles.paddingSides, { paddingLeft: 30 }]}>
         {coursesReducer.status === "SUCCEDDED" &&
           coursesReducer.courses.map((el, i) => (
             <SubjectCard code={el.code} color={el.color} name={el.name} key={i} />
           ))}
-      </SafeAreaScrollView>
+      </ScrollView>
       <SwipeableView children={<Agenda />} header="Calendar" />
     </>
   );

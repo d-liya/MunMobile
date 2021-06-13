@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import Animated, {
   interpolate,
   useAnimatedGestureHandler,
@@ -52,7 +52,8 @@ export default function SwipeableView({
   handleOpen,
   headerLineSeperator,
 }: Props) {
-  const windowHeight = Dimensions.get("window").height;
+  const windowHeight =
+    Platform.OS == "ios" ? Dimensions.get("window").height : Dimensions.get("screen").height;
   let START_VALUE = _handlePosition(startPosition, windowHeight);
   const translateY = useSharedValue(START_VALUE);
   const handleViewState = () => {

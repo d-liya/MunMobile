@@ -39,7 +39,11 @@ function CourseLookUpScreen({ navigation }: Props) {
       handleOpen={handleOpen}
     >
       <View style={[commonStyles.paddingSides, styles.container]}>
-        <Navbar navigation={navigation} />
+        <Navbar
+          containerStyle={styles.containerStyle}
+          navigation={navigation}
+          backLabel="Student Resources"
+        />
         <Picker value={term} setValue={setTerm} defaultLabel="Select The Term" items={pickerTwo} />
         <View style={styles.buttonContainer}>
           <Button text="Look Up" onPress={onPress} />
@@ -51,11 +55,16 @@ function CourseLookUpScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     borderRadius: 10,
+    flex: 1,
   },
   buttonContainer: {
     marginTop: 50,
+  },
+  containerStyle: {
+    borderRadius: 10,
+    position: "relative",
+    paddingLeft: 10,
   },
 });
 

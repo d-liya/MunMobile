@@ -1,12 +1,13 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { SafeAreaScrollView, Text, View, SafeAreaViewWithFlex } from "../components/Themed";
+import { ScrollView, Text, View, SafeAreaViewWithFlex } from "../components/Themed";
 import { LibraryTabParamList } from "../types";
 import commonStyle from "../components/Common/Styles";
 import Navbar from "../components/Navbar/Navbar";
 import Calendar from "../components/LibraryTab/Calendar";
 import { StyleSheet } from "react-native";
+import Constants from "expo-constants";
 
 type LibraryInfoNavigationProps = StackNavigationProp<LibraryTabParamList, "LibraryInfoScreen">;
 type LibraryInfoRouteProps = RouteProp<LibraryTabParamList, "LibraryInfoScreen">;
@@ -29,7 +30,7 @@ export default function LibraryInfoScreen({ navigation, route }: Props) {
           </View>
         }
       />
-      <SafeAreaScrollView style={[commonStyle.paddingSides, style.scrollContainer]}>
+      <ScrollView style={[commonStyle.paddingSides, style.scrollContainer]}>
         <View style={style.header}>
           <Text style={{ paddingBottom: 10 }}> {description}</Text>
           {available.length > 0 &&
@@ -45,7 +46,7 @@ export default function LibraryInfoScreen({ navigation, route }: Props) {
           </View>
         </View>
         <Calendar />
-      </SafeAreaScrollView>
+      </ScrollView>
     </>
   );
 }
@@ -56,7 +57,7 @@ const style = StyleSheet.create({
     width: "80%",
   },
   scrollContainer: {
-    paddingTop: 70,
+    paddingTop: Constants.statusBarHeight + 30,
   },
   header: {
     padding: 20,

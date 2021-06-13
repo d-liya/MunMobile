@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import React, { useEffect, useRef } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, Platform, StatusBar, StyleSheet, View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
   interpolate,
@@ -33,10 +33,11 @@ export default function SwipeableViewWrapper({
   handleOpen,
   bottomSheetStyle,
 }: Props) {
-  const windowHeight = Dimensions.get("window").height;
+  const windowHeight =
+    Platform.OS === "android" ? Dimensions.get("screen").height : Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
   const START_VALUE = windowHeight;
-  const MAX_HEIGHT = 50;
+  const MAX_HEIGHT = Platform.OS === "ios" ? 50 : 80;
   const translateY = useSharedValue(START_VALUE);
   const style = useAnimatedStyle(() => {
     return {
@@ -67,7 +68,7 @@ export default function SwipeableViewWrapper({
           ? (translateY.value = START_VALUE)
           : (translateY.value = MAX_HEIGHT);
         absoluteY > START_VALUE && translateY.value === START_VALUE
-          ? (translateY.value = windowHeight - 140)
+          ? (translateY.value = windowHeight)
           : null;
       } else {
         translateY.value = MAX_HEIGHT;
@@ -90,11 +91,7 @@ export default function SwipeableViewWrapper({
 
   return (
     <Animated.View style={[styles.wrapper]}>
-      <Animated.View style={[styles.container, wrapperStyle]}>
-        <View style={styles.khob} />
-
-        {children}
-      </Animated.View>
+      <Animated.View style={[styles.container, wrapperStyle]}>{children}</Animated.View>
       <PanGestureHandler {...{ onGestureEvent }}>
         <Animated.View
           style={[

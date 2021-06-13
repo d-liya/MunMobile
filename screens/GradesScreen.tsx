@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View, Text, SafeAreaScrollView } from "../components/Themed";
+import { View, Text, ScrollView } from "../components/Themed";
 import { useAppDispatch, useAppSelector, useColorScheme } from "../hooks";
 import Semester from "../components/StudentTab/Grades/Card";
 import SwipeableView from "../components/Common/SwipeableView";
@@ -12,6 +12,7 @@ import { getGradesAsync, setSemesterInfo } from "../redux/Slices/grades";
 import Navbar from "../components/Navbar/Navbar";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StudentTabParamList } from "../types";
+import Constants from "expo-constants";
 
 type GradeNavigationProps = StackNavigationProp<StudentTabParamList, "GradesScreen">;
 type Props = {
@@ -38,21 +39,22 @@ export default function GradesScreen({ navigation }: Props) {
 
   return (
     <>
-      <Navbar navigation={navigation} backLabel="Student Resources" />
-      <View style={styles.container}>
-        {gradesReducer.status === "SUCCEDDED" && (
-          <SafeAreaScrollView style={{ paddingTop: 70, paddingLeft: 30 }}>
-            {gradesReducer.grades?.map((el, i) => (
-              <SemesterCard
-                key={i}
-                name={el.semester}
-                gpa={el.gpa}
-                handleOnPress={() => handleSemesterCardPress(i)}
-              />
-            ))}
-          </SafeAreaScrollView>
-        )}
-      </View>
+      <Navbar
+        navigation={navigation}
+        backLabel="Student Resources"
+        containerStyle={{ position: "relative" }}
+      />
+      <ScrollView style={{ paddingLeft: 30, paddingRight: 20 }}>
+        {gradesReducer.status === "SUCCEDDED" &&
+          gradesReducer.grades?.map((el, i) => (
+            <SemesterCard
+              key={i}
+              name={el.semester}
+              gpa={el.gpa}
+              handleOnPress={() => handleSemesterCardPress(i)}
+            />
+          ))}
+      </ScrollView>
       <SwipeableView children={<OverallGradeCard />} header="Overall" />
       {gradesReducer.status === "SUCCEDDED" &&
         Object.keys(gradesReducer.selectedSemInfo).length > 0 && (
