@@ -1,15 +1,18 @@
 ## Mun Mobile
 
 #### Objective
+
 Re design of the existing mun mobile app with better UI/UX and some addtional features.
 
 #### Technology Stack
+
 - React v16.8
 - React Navtive
 - Typescript
 - Redux(State Management)
 
-#### Key Features 
+#### Key Features
+
 1. News Feed
 2. Checking grades
 3. Checking current course schedule
@@ -20,3 +23,4 @@ Re design of the existing mun mobile app with better UI/UX and some addtional fe
 8. Campus Directory
 9. Other Emergency Numbers Log
 
+#### Live Demo https://expo.io/@dliya/mun-mobile
