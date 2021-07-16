@@ -11,7 +11,13 @@ type Props = {
   style?: {};
 };
 
-export default function Picker({ value, setValue, items, defaultLabel, style }: Props) {
+export default function Picker({
+  value,
+  setValue,
+  items,
+  defaultLabel,
+  style,
+}: Props) {
   const theme = useColorScheme();
   return (
     <DefaultPicker
@@ -22,9 +28,14 @@ export default function Picker({ value, setValue, items, defaultLabel, style }: 
       }}
       style={style}
     >
-      <DefaultPicker.Item label={defaultLabel ? defaultLabel : "-- SELECT --"} value="0" />
+      <DefaultPicker.Item
+        label={defaultLabel ? defaultLabel : "-- SELECT --"}
+        value=""
+      />
       {items.length > 0 &&
-        items.map((el, i) => <DefaultPicker.Item key={i} label={el.label} value={el.value} />)}
+        items.map((el, i) => (
+          <DefaultPicker.Item key={i} label={el.label} value={el.value} />
+        ))}
     </DefaultPicker>
   );
 }

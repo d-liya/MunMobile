@@ -1,36 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  handleCourseChange,
+  handleSubjectChange,
+} from "../../redux/Slices/course-registration";
 import BackButton from "../Common/BackButton";
 import Button from "../Common/Button";
 import Picker from "../Common/Picker";
 import { ScrollView, View, Text } from "../Themed";
 
 const pickerOne = [
-  { label: "Computer Science", value: "comp" },
-  { label: "Mathematics", value: "math" },
-  { label: "Physics", value: "phy" },
+  { label: "Computer Science", value: "Computer Science" },
+  { label: "Mathematics", value: "Mathematics" },
+  { label: "Physics", value: "Physics" },
 ];
 
 export default function ClassLookUp() {
-  const [course, setCourse] = useState("");
+  const { course, term, subject } = useAppSelector(
+    (state) => state.registration
+  );
+  const dispatch = useAppDispatch();
   const [open, set] = useState(false);
-
+  useEffect(() => {
+    !open ? dispatch(handleSubjectChange("")) : null;
+  }, [open]);
   return open ? (
-    <ScrollView style={styles.scrollContainer}>
-      <TouchableOpacity onPress={() => set(!open)}>
+    <View style={styles.container}>
+      <TouchableOpacity style={{ marginLeft: -15 }} onPress={() => set(!open)}>
         <BackButton />
       </TouchableOpacity>
-      <Text text="boldMediumTitle" style={{ textAlign: "center" }}>
-        No Data
+      <Text style={styles.header} text="boldMediumTitle">
+        {subject}
       </Text>
-    </ScrollView>
+      <ScrollView style={styles.scrollContainer}>
+        <Text text="boldMediumTitle" style={{ textAlign: "center" }}>
+          No Data
+        </Text>
+      </ScrollView>
+    </View>
   ) : (
-    <>
-      <Picker style={styles.pickerStyle} value={course} setValue={setCourse} items={pickerOne} />
+    <View style={{ flex: 1 }}>
+      <Text style={styles.header} text="boldMediumTitle">
+        {term}
+      </Text>
+      <Picker
+        style={styles.pickerStyle}
+        value={subject}
+        setValue={(value) => dispatch(handleSubjectChange(value))}
+        items={pickerOne}
+      />
       <View style={styles.buttonContainer}>
-        <Button text="Look Up" onPress={() => set(!open)} />
+        <Button
+          text="Look Up"
+          onPress={() => set(!open)}
+          disabled={subject === ""}
+        />
       </View>
-    </>
+    </View>
   );
 }
 
@@ -44,5 +71,13 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     marginTop: 50,
+  },
+  header: {
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  container: {
+    flex: 1,
+    paddingTop: 10,
   },
 });

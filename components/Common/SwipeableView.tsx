@@ -53,7 +53,9 @@ export default function SwipeableView({
   headerLineSeperator,
 }: Props) {
   const windowHeight =
-    Platform.OS == "ios" ? Dimensions.get("window").height : Dimensions.get("screen").height;
+    Platform.OS == "ios"
+      ? Dimensions.get("window").height
+      : Dimensions.get("screen").height;
   let START_VALUE = _handlePosition(startPosition, windowHeight);
   const translateY = useSharedValue(START_VALUE);
   const handleViewState = () => {
@@ -72,7 +74,9 @@ export default function SwipeableView({
       handleViewState();
       handleOpen(false);
     } else {
-      translateY.value === 100 ? (translateY.value = START_VALUE) : (translateY.value = 100);
+      translateY.value === 100
+        ? (translateY.value = START_VALUE)
+        : (translateY.value = 100);
     }
   };
 
@@ -95,7 +99,7 @@ export default function SwipeableView({
           ? (translateY.value = START_VALUE)
           : (translateY.value = 100);
         absoluteY > START_VALUE && translateY.value === START_VALUE
-          ? (translateY.value = windowHeight - 140)
+          ? (translateY.value = windowHeight - 75)
           : null;
       } else {
         absoluteY < START_VALUE
@@ -117,10 +121,20 @@ export default function SwipeableView({
   return (
     <>
       <PanGestureHandler {...{ onGestureEvent }}>
-        <Animated.View style={[style, styles.container, { backgroundColor: Colors[theme].tint }]}>
+        <Animated.View
+          style={[
+            style,
+            styles.container,
+            { backgroundColor: Colors[theme].tint },
+          ]}
+        >
           <View style={styles.khob} />
           {header && (
-            <Text style={styles.headerText} text="boldMediumTitle" numberOfLines={1}>
+            <Text
+              style={styles.headerText}
+              text="boldMediumTitle"
+              numberOfLines={1}
+            >
               {header}
             </Text>
           )}
@@ -135,7 +149,11 @@ export default function SwipeableView({
           )}
           {headerLineSeperator && (
             <LineSeperator
-              styles={theme === "dark" ? { borderBottomColor: Colors[theme].background } : {}}
+              styles={
+                theme === "dark"
+                  ? { borderBottomColor: Colors[theme].background }
+                  : {}
+              }
             />
           )}
           {children}

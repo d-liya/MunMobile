@@ -25,7 +25,10 @@ import Animated, {
 } from "react-native-reanimated";
 import Navbar from "../components/Navbar/Navbar";
 
-type NewsTabNavigationProps = StackNavigationProp<NewsTabParamList, "NewsTabScreen">;
+type NewsTabNavigationProps = StackNavigationProp<
+  NewsTabParamList,
+  "NewsTabScreen"
+>;
 type NewsTabRouteProps = RouteProp<NewsTabParamList, "NewsTabScreen">;
 type Props = {
   navigation: NewsTabNavigationProps;
@@ -62,7 +65,12 @@ export default function NewsTabScreen({ route, navigation }: Props) {
       [0, -IMAGE_HEIGHT],
       Extrapolate.CLAMP
     );
-    const opacity = interpolate(scrollY.value, [0, 100], [1, 0], Extrapolate.CLAMP);
+    const opacity = interpolate(
+      scrollY.value,
+      [0, 100],
+      [1, 0],
+      Extrapolate.CLAMP
+    );
     return {
       height,
       top,
@@ -71,7 +79,12 @@ export default function NewsTabScreen({ route, navigation }: Props) {
   });
 
   const headerStyles = useAnimatedStyle(() => {
-    const opacity = interpolate(scrollY.value, [0, IMAGE_HEIGHT], [0, 1], Extrapolate.CLAMP);
+    const opacity = interpolate(
+      scrollY.value,
+      [0, IMAGE_HEIGHT],
+      [0, 1],
+      Extrapolate.CLAMP
+    );
     return {
       opacity,
     };
@@ -90,7 +103,12 @@ export default function NewsTabScreen({ route, navigation }: Props) {
   });
 
   const scrollViewFillStyles = useAnimatedStyle(() => {
-    const top = interpolate(scrollY.value, [0, IMAGE_HEIGHT], [IMAGE_HEIGHT, 0], Extrapolate.CLAMP);
+    const top = interpolate(
+      scrollY.value,
+      [0, IMAGE_HEIGHT],
+      [IMAGE_HEIGHT, 0],
+      Extrapolate.CLAMP
+    );
     return {
       height: top,
     };
@@ -99,7 +117,7 @@ export default function NewsTabScreen({ route, navigation }: Props) {
     <View style={styles.container}>
       <Navbar
         navigation={navigation}
-        containerStyle={{ backgroundColor: "transparent" }}
+        containerStyle={{ backgroundColor: "transparent", paddingLeft: 20 }}
         children={
           <Animated.View style={[headerStyles, { width: "80%" }]}>
             <Text text="semiBoldbodyText" style={styles.textAlign}>

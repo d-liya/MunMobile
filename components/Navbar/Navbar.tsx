@@ -10,10 +10,13 @@ type Props = {
   navigation: any;
   children?: any;
   containerStyle?: any;
-  backLabel?: string;
 };
 // @ts-ignore
-export default function Navbar({ navigation, children, containerStyle, backLabel }: Props) {
+export default function Navbar({
+  navigation,
+  children,
+  containerStyle,
+}: Props) {
   const handleBackButton = () => {
     navigation.goBack();
   };
@@ -22,7 +25,6 @@ export default function Navbar({ navigation, children, containerStyle, backLabel
     <View style={[styles.header, containerStyle]}>
       <TouchableOpacity style={styles.iconStyles} onPress={handleBackButton}>
         <BackButton />
-        {backLabel && <Text text="semiBoldbodyText">{backLabel}</Text>}
       </TouchableOpacity>
       {children ? children : null}
     </View>
@@ -36,7 +38,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    paddingLeft: 20,
     paddingRight: 20,
     width: "100%",
     position: "absolute",

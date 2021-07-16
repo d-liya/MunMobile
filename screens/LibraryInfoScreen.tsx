@@ -1,7 +1,12 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { ScrollView, Text, View, SafeAreaViewWithFlex } from "../components/Themed";
+import {
+  ScrollView,
+  Text,
+  View,
+  SafeAreaViewWithFlex,
+} from "../components/Themed";
 import { LibraryTabParamList } from "../types";
 import commonStyle from "../components/Common/Styles";
 import Navbar from "../components/Navbar/Navbar";
@@ -9,8 +14,14 @@ import Calendar from "../components/LibraryTab/Calendar";
 import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
 
-type LibraryInfoNavigationProps = StackNavigationProp<LibraryTabParamList, "LibraryInfoScreen">;
-type LibraryInfoRouteProps = RouteProp<LibraryTabParamList, "LibraryInfoScreen">;
+type LibraryInfoNavigationProps = StackNavigationProp<
+  LibraryTabParamList,
+  "LibraryInfoScreen"
+>;
+type LibraryInfoRouteProps = RouteProp<
+  LibraryTabParamList,
+  "LibraryInfoScreen"
+>;
 type Props = {
   navigation: LibraryInfoNavigationProps;
   route: LibraryInfoRouteProps;
@@ -20,19 +31,11 @@ export default function LibraryInfoScreen({ navigation, route }: Props) {
   const { name, available, description } = route.params;
   return (
     <>
-      <Navbar
-        navigation={navigation}
-        children={
-          <View style={style.navbar}>
-            <Text text="semiBoldbodyText" numberOfLines={1}>
-              {name}
-            </Text>
-          </View>
-        }
-      />
+      <Navbar navigation={navigation} />
       <ScrollView style={[commonStyle.paddingSides, style.scrollContainer]}>
+        <Text text="boldMediumTitle">{name}</Text>
         <View style={style.header}>
-          <Text style={{ paddingBottom: 10 }}> {description}</Text>
+          <Text style={{ paddingBottom: 10 }}>{description}</Text>
           {available.length > 0 &&
             available.map((el, i) => (
               <Text text="secondaryText" key={i}>
@@ -57,10 +60,10 @@ const style = StyleSheet.create({
     width: "80%",
   },
   scrollContainer: {
-    paddingTop: Constants.statusBarHeight + 30,
+    paddingTop: Constants.statusBarHeight + 50,
   },
   header: {
-    padding: 20,
+    paddingTop: 20,
   },
   labelList: {
     paddingTop: 30,

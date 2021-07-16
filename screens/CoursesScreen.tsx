@@ -11,7 +11,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { StudentTabParamList } from "../types";
 import Navbar from "../components/Navbar/Navbar";
 
-type CourseNavigationProps = StackNavigationProp<StudentTabParamList, "CourseScreen">;
+type CourseNavigationProps = StackNavigationProp<
+  StudentTabParamList,
+  "CourseScreen"
+>;
 type Props = {
   navigation: CourseNavigationProps;
 };
@@ -27,12 +30,19 @@ export default function CoursesScreen({ navigation }: Props) {
       <Navbar
         navigation={navigation}
         containerStyle={{ position: "relative" }}
-        backLabel="Student Resources"
       />
-      <ScrollView style={[commonStyles.paddingSides, { paddingLeft: 30 }]}>
+      <View style={[commonStyles.paddingSides, { paddingTop: 10 }]}>
+        <Text text="boldMediumTitle">Courses</Text>
+      </View>
+      <ScrollView style={[commonStyles.paddingSides]}>
         {coursesReducer.status === "SUCCEDDED" &&
           coursesReducer.courses.map((el, i) => (
-            <SubjectCard code={el.code} color={el.color} name={el.name} key={i} />
+            <SubjectCard
+              code={el.code}
+              color={el.color}
+              name={el.name}
+              key={i}
+            />
           ))}
       </ScrollView>
       <SwipeableView children={<Agenda />} header="Calendar" />

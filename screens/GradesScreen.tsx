@@ -13,8 +13,12 @@ import Navbar from "../components/Navbar/Navbar";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StudentTabParamList } from "../types";
 import Constants from "expo-constants";
+import commonStyles from "../components/Common/Styles";
 
-type GradeNavigationProps = StackNavigationProp<StudentTabParamList, "GradesScreen">;
+type GradeNavigationProps = StackNavigationProp<
+  StudentTabParamList,
+  "GradesScreen"
+>;
 type Props = {
   navigation: GradeNavigationProps;
 };
@@ -41,10 +45,12 @@ export default function GradesScreen({ navigation }: Props) {
     <>
       <Navbar
         navigation={navigation}
-        backLabel="Student Resources"
         containerStyle={{ position: "relative" }}
       />
-      <ScrollView style={{ paddingLeft: 30, paddingRight: 20 }}>
+      <View style={[commonStyles.paddingSides]}>
+        <Text text="boldMediumTitle">Grades</Text>
+      </View>
+      <ScrollView style={[commonStyles.paddingSides, styles.scrollContainer]}>
         {gradesReducer.status === "SUCCEDDED" &&
           gradesReducer.grades?.map((el, i) => (
             <SemesterCard
@@ -77,5 +83,8 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 0,
     ...StyleSheet.absoluteFillObject,
+  },
+  scrollContainer: {
+    paddingTop: 10,
   },
 });
