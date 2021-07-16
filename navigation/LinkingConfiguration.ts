@@ -21,6 +21,12 @@ export default {
           StudentTabScreen: "student",
           GradesScreen: "student/grades",
           CoursesScreen: "student/courses",
+          RegistrationStack: {
+            screens: {
+              RegistrationTermSelectScreen: "student/registration/term",
+              RegistrationInfoScreen: "student/registration/info",
+            },
+          },
         },
       },
       InformationTab: {

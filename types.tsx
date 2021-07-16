@@ -20,14 +20,17 @@ export type BottomTabParamList = {
 
 export type NewsTabParamList = {
   MainNewsTabScreen: undefined;
-  NewsTabScreen: { category: keyof typeof NewsSectionColors | string; title: string };
+  NewsTabScreen: {
+    category: keyof typeof NewsSectionColors | string;
+    title: string;
+  };
 };
 
 export type StudentTabParamList = {
   StudentTabScreen: undefined;
   GradesScreen: undefined;
   CourseScreen: undefined;
-  CourseLookUpScreen: undefined;
+  RegistrationStack: undefined;
 };
 
 export type LibraryTabParamList = {
@@ -43,6 +46,11 @@ export type StudentBottomTabParamList = {
 export type InfromationTabParamList = {
   InformationTabScreen: undefined;
   MapScreen: undefined;
+};
+
+export type RegistrationStackScreens = {
+  RegistrationInfoScreen: undefined;
+  RegistrationTermSelectScreen: undefined;
 };
 
 export type FetchStatus = "IDLE" | "LOADING" | "SUCCEDDED" | "FAILED";

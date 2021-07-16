@@ -6,9 +6,10 @@ import GradesScreen from "../screens/GradesScreen";
 import CoursesBottomTabNavigator from "./CoursesBottomTabNavigator";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import CoursesScreen from "../screens/CoursesScreen";
-import CourseLookUpScreen from "../screens/CourseLookUpScreen";
+import RegistrationTermSelectScreen from "../screens/RegistrationTermSelectScreen";
 import BackButton from "../components/Common/BackButton";
 import { View } from "../components/Themed";
+import RegistrationStackNavigator from "./RegistrationStackNavigator";
 
 const StudentTabStack = createStackNavigator<StudentTabParamList>();
 type NavigatorProps = BottomTabNavigationProp<BottomTabParamList, "StudentTab">;
@@ -22,10 +23,16 @@ export default function StudentTabNavigator({ navigation }: Props) {
         headerShown: false,
       }}
     >
-      <StudentTabStack.Screen name="StudentTabScreen" component={StudentTabScreen} />
+      <StudentTabStack.Screen
+        name="StudentTabScreen"
+        component={StudentTabScreen}
+      />
       <StudentTabStack.Screen name="CourseScreen" component={CoursesScreen} />
       <StudentTabStack.Screen name="GradesScreen" component={GradesScreen} />
-      <StudentTabStack.Screen name="CourseLookUpScreen" component={CourseLookUpScreen} />
+      <StudentTabStack.Screen
+        name="RegistrationStack"
+        component={RegistrationStackNavigator}
+      />
     </StudentTabStack.Navigator>
   );
 }

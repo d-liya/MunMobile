@@ -13,14 +13,43 @@ import StudentTabNavigator from "./StudentTabNaviagtor";
 import LibraryTabNavigator from "./LibraryTabNavigator";
 import InformationTabNaviagtor from "./InformationTabNavigator";
 import NewsTabNavigator from "./NewsTabNavigator";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import {
+  getFocusedRouteNameFromRoute,
+  PartialState,
+  Route,
+  RouteProp,
+} from "@react-navigation/native";
 import { BottomTabParamList } from "../types";
 import { TabBarIcon } from "../components/Common/TabBarIcon";
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const handleTabBarVisibility = (route) => {
+  const handleTabBarVisibility = (
+    route:
+      | RouteProp<BottomTabParamList, keyof BottomTabParamList>
+      | (Partial<Route<string, object | undefined>> & {
+          state?:
+            | PartialState<
+                Readonly<{
+                  key: string;
+                  index: number;
+                  routeNames: string[];
+                  history?: unknown[] | undefined;
+                  routes: (Readonly<{ key: string; name: string }> &
+                    Readonly<{ params?: Readonly<object | undefined> }> & {
+                      state?:
+                        | Readonly<any>
+                        | PartialState<Readonly<any>>
+                        | undefined;
+                    })[];
+                  type: string;
+                  stale: false;
+                }>
+              >
+            | undefined;
+        })
+  ) => {
     const routeName = getFocusedRouteNameFromRoute(route);
     switch (routeName) {
       case "CourseScreen":
@@ -31,9 +60,9 @@ export default function BottomTabNavigator() {
         return false;
       case "MapScreen":
         return false;
-      case "CourseLookUpScreen":
-        return false;
       case "LibraryInfoScreen":
+        return false;
+      case "RegistrationStack":
         return false;
       default:
         return true;
@@ -53,7 +82,9 @@ export default function BottomTabNavigator() {
         name="NewsTab"
         component={NewsTabNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="newspaper" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="newspaper" color={color} />
+          ),
           tabBarLabel: "News",
         }}
       />
@@ -69,7 +100,9 @@ export default function BottomTabNavigator() {
         name="LibraryTab"
         component={LibraryTabNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="library" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="library" color={color} />
+          ),
           tabBarLabel: "Library",
         }}
       />

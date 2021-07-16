@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
-  handleCourseChange,
-  handleSubjectChange,
-} from "../../redux/Slices/course-registration";
+import { handleSubjectChange } from "../../redux/Slices/course-registration";
 import BackButton from "../Common/BackButton";
 import Button from "../Common/Button";
 import Picker from "../Common/Picker";

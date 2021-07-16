@@ -9,7 +9,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { StudentTabParamList } from "../types";
 import commonStyles from "../components/Common/Styles";
 
-type StudentTabNavigatorProps = StackNavigationProp<StudentTabParamList, "StudentTabScreen">;
+type StudentTabNavigatorProps = StackNavigationProp<
+  StudentTabParamList,
+  "StudentTabScreen"
+>;
 type Props = {
   navigation: StudentTabNavigatorProps;
 };
@@ -34,11 +37,15 @@ export default function StudentTabScreen({ navigation }: Props) {
           iconName="chalkboard-teacher"
           onPress={() => handleScreenChange("CourseScreen")}
         />
-        <Card text="Grades" iconName="poll" onPress={() => handleScreenChange("GradesScreen")} />
         <Card
-          text="Course Look Up"
-          iconName="search"
-          onPress={() => handleScreenChange("CourseLookUpScreen")}
+          text="Grades"
+          iconName="poll"
+          onPress={() => handleScreenChange("GradesScreen")}
+        />
+        <Card
+          text="Registration"
+          iconName="book"
+          onPress={() => handleScreenChange("RegistrationStack")}
         />
         <Card
           text="Athletics"
