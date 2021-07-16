@@ -39,10 +39,12 @@ type Props = {
   bottomSheetStyle?: {};
   style?: {};
 };
-export type RefProps = React.MutableRefObject<{
-  open: () => void;
-  close: () => void;
-}>;
+export type RefProps =
+  | React.MutableRefObject<{
+      open: () => void;
+      close: () => void;
+    }>
+  | React.MutableRefObject<undefined>;
 
 const SwipeableViewWrapper = forwardRef(
   ({ bottomSheetChildren, children, bottomSheetStyle, style }: Props, ref) => {

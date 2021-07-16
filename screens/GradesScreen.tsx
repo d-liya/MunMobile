@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { View, Text, ScrollView } from "../components/Themed";
 import { useAppDispatch, useAppSelector, useColorScheme } from "../hooks";
@@ -14,6 +14,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { StudentTabParamList } from "../types";
 import Constants from "expo-constants";
 import commonStyles from "../components/Common/Styles";
+import { RefProps } from "../components/Common/SwipeableViewWrapper";
 
 type GradeNavigationProps = StackNavigationProp<
   StudentTabParamList,
@@ -27,8 +28,7 @@ export default function GradesScreen({ navigation }: Props) {
   const dispatch = useAppDispatch();
   const gradesReducer = useAppSelector((state) => state.grades);
   const theme = useColorScheme();
-  const [open, set] = useState(false);
-
+  const ref: RefProps = useRef();
   useEffect(() => {
     dispatch(getGradesAsync());
   }, []);
@@ -38,7 +38,7 @@ export default function GradesScreen({ navigation }: Props) {
       const info = gradesReducer.grades[index];
       dispatch(setSemesterInfo(info));
     }
-    set(true);
+    if (ref.current) ref.current.open();
   };
 
   return (
@@ -47,7 +47,7 @@ export default function GradesScreen({ navigation }: Props) {
         navigation={navigation}
         containerStyle={{ position: "relative" }}
       />
-      <View style={[commonStyles.paddingSides]}>
+      <View style={[commonStyles.paddingSides, { paddingTop: 10 }]}>
         <Text text="boldMediumTitle">Grades</Text>
       </View>
       <ScrollView style={[commonStyles.paddingSides, styles.scrollContainer]}>
@@ -65,11 +65,10 @@ export default function GradesScreen({ navigation }: Props) {
       {gradesReducer.status === "SUCCEDDED" &&
         Object.keys(gradesReducer.selectedSemInfo).length > 0 && (
           <SwipeableView
+            ref={ref}
             children={<Semester data={gradesReducer.selectedSemInfo.courses} />}
             header={gradesReducer.selectedSemInfo.semester}
             startPosition="HIDDEN"
-            handleOpen={(el) => set(el)}
-            open={open}
             icon="close"
           />
         )}

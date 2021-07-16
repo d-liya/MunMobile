@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { Platform, StyleSheet } from "react-native";
 import Animated, {
   interpolate,
@@ -31,10 +31,9 @@ type Props = {
   children: JSX.Element;
   icon?: React.ComponentProps<typeof Ionicons>["name"];
   startPosition?: PositionProps;
-  handleOpen?: (el: boolean) => void;
-  open?: boolean;
   headerLineSeperator?: boolean;
 };
+
 const _handlePosition = (position: PositionProps, height: number) => {
   switch (position) {
     case "HIDDEN":
@@ -43,125 +42,124 @@ const _handlePosition = (position: PositionProps, height: number) => {
       return height / 2;
   }
 };
-export default function SwipeableView({
-  header,
-  children,
-  icon,
-  startPosition = "HALF",
-  open,
-  handleOpen,
-  headerLineSeperator,
-}: Props) {
-  const windowHeight =
-    Platform.OS == "ios"
-      ? Dimensions.get("window").height
-      : Dimensions.get("screen").height;
-  let START_VALUE = _handlePosition(startPosition, windowHeight);
-  const translateY = useSharedValue(START_VALUE);
-  const handleViewState = () => {
-    if (typeof open === "boolean" && handleOpen) {
-      open ? (translateY.value = 100) : (translateY.value = START_VALUE);
-    }
-  };
-  useEffect(() => {
-    if (open && handleOpen) {
-      handleViewState();
-      handleOpen(false);
-    }
-  }, [open]);
-  const handleIconPress = () => {
-    if (open && handleOpen) {
-      handleViewState();
-      handleOpen(false);
-    } else {
-      translateY.value === 100
-        ? (translateY.value = START_VALUE)
-        : (translateY.value = 100);
-    }
-  };
-
-  const theme = useColorScheme();
-
-  const onGestureEvent = useAnimatedGestureHandler({
-    onStart: (event, ctx: { offsetY: number }) => {
-      ctx.offsetY = translateY.value;
-    },
-    onActive: (event, ctx) => {
-      if (ctx.offsetY + event.translationY > 0) {
-        translateY.value = ctx.offsetY + event.translationY;
-      }
-    },
-    onEnd: ({ velocityY, absoluteY, velocityX }, ctx) => {
-      if (velocityY > 0) {
-        velocityY > 500
-          ? (translateY.value = START_VALUE)
-          : absoluteY > START_VALUE - 100
-          ? (translateY.value = START_VALUE)
-          : (translateY.value = 100);
-        absoluteY > START_VALUE && translateY.value === START_VALUE
-          ? (translateY.value = windowHeight - 75)
-          : null;
-      } else {
-        absoluteY < START_VALUE
-          ? velocityY < -500
-            ? (translateY.value = 100)
-            : absoluteY < 250
-            ? (translateY.value = 100)
-            : (translateY.value = START_VALUE)
-          : (translateY.value = START_VALUE);
-      }
-    },
-  });
-
-  const style = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: withSpring(translateY.value, SPRING_CONFIG) }],
+const SwipeableView = forwardRef(
+  (
+    {
+      header,
+      children,
+      icon,
+      startPosition = "HALF",
+      headerLineSeperator,
+    }: Props,
+    ref
+  ) => {
+    const windowHeight =
+      Platform.OS == "ios"
+        ? Dimensions.get("window").height
+        : Dimensions.get("screen").height;
+    let START_VALUE = _handlePosition(startPosition, windowHeight);
+    const translateY = useSharedValue(START_VALUE);
+    const _handleOpen = () => {
+      translateY.value = 100;
     };
-  });
-  return (
-    <>
-      <PanGestureHandler {...{ onGestureEvent }}>
-        <Animated.View
-          style={[
-            style,
-            styles.container,
-            { backgroundColor: Colors[theme].tint },
-          ]}
-        >
-          <View style={styles.khob} />
-          {header && (
-            <Text
-              style={styles.headerText}
-              text="boldMediumTitle"
-              numberOfLines={1}
-            >
-              {header}
-            </Text>
-          )}
-          {icon && (
-            <Ionicons
-              style={styles.icon}
-              onPress={handleIconPress}
-              name={icon}
-              color={Colors[theme].text}
-              size={25}
-            />
-          )}
-          {headerLineSeperator && (
-            <LineSeperator
-              styles={
-                theme === "dark"
-                  ? { borderBottomColor: Colors[theme].background }
-                  : {}
-              }
-            />
-          )}
-          {children}
-        </Animated.View>
-      </PanGestureHandler>
-    </>
-  );
-}
+    const _handleClose = () => {
+      translateY.value = START_VALUE;
+    };
+    const theme = useColorScheme();
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        open: _handleOpen,
+        close: _handleClose,
+      }),
+      []
+    );
+
+    const onGestureEvent = useAnimatedGestureHandler({
+      onStart: (event, ctx: { offsetY: number }) => {
+        ctx.offsetY = translateY.value;
+      },
+      onActive: (event, ctx) => {
+        if (ctx.offsetY + event.translationY > 0) {
+          translateY.value = ctx.offsetY + event.translationY;
+        }
+      },
+      onEnd: ({ velocityY, absoluteY, velocityX }, ctx) => {
+        if (velocityY > 0) {
+          velocityY > 500
+            ? (translateY.value = START_VALUE)
+            : absoluteY > START_VALUE - 100
+            ? (translateY.value = START_VALUE)
+            : (translateY.value = 100);
+          absoluteY > START_VALUE && translateY.value === START_VALUE
+            ? (translateY.value = windowHeight - 75)
+            : null;
+        } else {
+          absoluteY < START_VALUE
+            ? velocityY < -500
+              ? (translateY.value = 100)
+              : absoluteY < 250
+              ? (translateY.value = 100)
+              : (translateY.value = START_VALUE)
+            : (translateY.value = START_VALUE);
+        }
+      },
+    });
+
+    const style = useAnimatedStyle(() => {
+      return {
+        transform: [
+          { translateY: withSpring(translateY.value, SPRING_CONFIG) },
+        ],
+      };
+    });
+    return (
+      <>
+        <PanGestureHandler {...{ onGestureEvent }}>
+          <Animated.View
+            style={[
+              style,
+              styles.container,
+              { backgroundColor: Colors[theme].tint },
+            ]}
+          >
+            <View style={styles.khob} />
+            {header && (
+              <Text
+                style={styles.headerText}
+                text="boldMediumTitle"
+                numberOfLines={1}
+              >
+                {header}
+              </Text>
+            )}
+            {icon && (
+              <Ionicons
+                style={styles.icon}
+                onPress={_handleClose}
+                name={icon}
+                color={Colors[theme].text}
+                size={25}
+              />
+            )}
+            {headerLineSeperator && (
+              <LineSeperator
+                styles={
+                  theme === "dark"
+                    ? { borderBottomColor: Colors[theme].background }
+                    : {}
+                }
+              />
+            )}
+            {children}
+          </Animated.View>
+        </PanGestureHandler>
+      </>
+    );
+  }
+);
+export default SwipeableView;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,

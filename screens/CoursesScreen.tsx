@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ScrollView, View, Text } from "../components/Themed";
 import SwipeableView from "../components/Common/SwipeableView";
 import Agenda from "../components/StudentTab/Courses/Agenda";
@@ -22,6 +22,7 @@ type Props = {
 export default function CoursesScreen({ navigation }: Props) {
   const dispatch = useAppDispatch();
   const coursesReducer = useAppSelector((state) => state.courses);
+  const ref = useRef();
   useEffect(() => {
     dispatch(getCourseInfoAsyc());
   }, []);
@@ -45,7 +46,7 @@ export default function CoursesScreen({ navigation }: Props) {
             />
           ))}
       </ScrollView>
-      <SwipeableView children={<Agenda />} header="Calendar" />
+      <SwipeableView ref={ref} children={<Agenda />} header="Calendar" />
     </>
   );
 }

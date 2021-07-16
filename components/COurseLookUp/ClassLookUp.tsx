@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   header: {
-    paddingTop: 20,
+    paddingTop: 10,
     paddingBottom: 20,
   },
   container: {

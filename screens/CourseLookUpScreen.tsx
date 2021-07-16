@@ -44,7 +44,7 @@ function CourseLookUpScreen({ navigation }: Props) {
 
   const ref: RefProps = useRef();
   const onPress = () => {
-    ref.current.open();
+    if (ref.current) ref.current.open();
   };
   const theme = useColorScheme();
   return (
@@ -59,7 +59,9 @@ function CourseLookUpScreen({ navigation }: Props) {
           containerStyle={styles.containerStyle}
           navigation={navigation}
         />
-        <Text text="boldMediumTitle">Course Look Up</Text>
+        <Text text="boldMediumTitle" style={{ paddingTop: 10 }}>
+          Course Look Up
+        </Text>
         <Picker
           value={term}
           setValue={(value) => dispatch(handleTermChange(value))}
